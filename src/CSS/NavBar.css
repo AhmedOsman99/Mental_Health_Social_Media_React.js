@@ -1,0 +1,146 @@
+.home {
+  background-color: #f4f4f4;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  width: 100vw;
+  /* el class el kbeera 5ales elly be contain kol el 7gat */
+  position: relative;
+}
+
+.home .frame {
+  background-color: #83c5be;
+  height: 100px;
+  left: 0;
+  position: absolute;
+  top: 0;
+  width: 100%;
+  /* border: 5px solid black; */
+}
+
+.home .group {
+  height: 40px;
+  left: 55px;
+  position: relative;
+  top: 30px;
+  width: 423px;
+  /* logo + search bar */
+}
+
+.home .frame-2 {
+  align-items: center;
+  display: flex;
+  gap: 25px;
+  position: relative;
+  width: fit-content;
+  /* border: 5px solid black; */
+}
+
+.home .text-wrapper {
+  color: #f4f4f4;
+  font-family: "Roboto-Bold", Helvetica;
+  font-size: 32px;
+  font-weight: 700;
+  letter-spacing: 0.96px;
+  line-height: 44.8px;
+  position: relative;
+  white-space: nowrap;
+  width: fit-content;
+}
+
+.home .overlap-group-wrapper {
+  height: 50px;
+  margin-right: -2px;
+  min-width: 314px;
+  position: relative;
+  /* el search icon bel serach bar */
+}
+
+.home .search-input {
+  background-color: #f4f4f4;
+  border-radius: 16px;
+  height: 40px;
+  position: relative;
+  width: 312px;
+}
+/* el search bar nafso */
+.home .iconamoon-search {
+  height: 20px;
+  left: 8px;
+  position: absolute;
+  top: 10px;
+  width: 24px;
+}
+
+.home .text-wrapper-2 {
+  color: #5e5e5e;
+  font-family: "Roboto-Regular", Helvetica;
+  font-size: 14px;
+  font-weight: 400;
+  left: 40px;
+  letter-spacing: 0;
+  line-height: normal;
+  position: absolute;
+  top: 12px;
+  white-space: nowrap;
+}
+
+.home .frame-3 {
+  align-items: flex-start;
+  display: flex;
+  gap: 16px;
+  right: 211px;
+  position: absolute;
+  top: 25px;
+  width: fit-content;
+  /* border: 5px solid black; */
+}
+
+.home .img {
+  height: 30px;
+  min-width: 50px;
+  position: relative;
+}
+
+.home .notification-icon-wrapper {
+  background-color: #f4f4f4;
+  border-radius: 31px;
+  height: 50px;
+  min-width: 50px;
+  overflow: hidden;
+  position: relative;
+}
+
+.home .notification-icon {
+  height: 24px;
+  left: 13px;
+  position: relative;
+  top: 13px;
+  width: 24px;
+}
+
+.home .overlap-group-2 {
+  height: 22px;
+  left: 3px;
+  position: relative;
+  top: 1px;
+  width: 19px;
+}
+
+.home .group-2 {
+  height: 21px;
+  left: 0;
+  position: absolute;
+  top: 0;
+  width: 19px;
+}
+
+.home .frame-4 {
+  background-color: #ca0000;
+  border-radius: 15px;
+  height: 6px;
+  left: 11px;
+  position: absolute;
+  top: 0;
+  width: 6px;
+}
