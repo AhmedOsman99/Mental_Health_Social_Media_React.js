@@ -1,8 +1,6 @@
 import React from "react";
 import { Login } from "./components/Login";
-import { Register } from "./components/Register";
 import { Doctor_form } from "./components/Doctor_form";
-import { User_form } from "./components/User_form";
 import { NavBar } from "./components/NavBar";
 import {
   BrowserRouter,
@@ -14,13 +12,9 @@ import {
 function App() {
   return (
     <div>
-      <NavBar />
       <Routes>
-        <Route path="/" element={<Register />} />
-        <Route path="/signup" element={<Register />} />
         <Route path="/login" element={<Login />} />
-        <Route path="/Doctor_form" element={<Doctor_form />} />
-        <Route path="/User_form" element={<User_form />} />
+        <Route path="" element={<Doctor_form />} />
       </Routes>
     </div>
   );
