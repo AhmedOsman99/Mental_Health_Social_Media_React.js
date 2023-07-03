@@ -7,10 +7,14 @@ import axios from 'axios';
 export function Doctor_form() {
   const navigate = useNavigate();
   const [firstName, setFirstName] = useState('');
+  const [userName, setUserName] = useState('');
   const [lastName, setLastName] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
+  const [gender, setGender] = useState('');
+  const [phone, setPhone] = useState('');
+  const [birthDate, setBirthDate] = useState('');
   const [isDoctor, setIsDoctor] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
   const [formErrors, setFormErrors] = useState({
@@ -21,6 +25,10 @@ export function Doctor_form() {
     confirmPassword: '',
     specialty: '',
     Certificate: '',
+    userName: '',
+    gender: '',
+    phone: '',
+    birthDate: '',
   });
 
   const [specialty, setSpecialty] = useState('');
@@ -32,6 +40,9 @@ export function Doctor_form() {
     const errors = {};
     if (!firstName) {
       errors.firstName = 'Please enter your first name';
+    }
+    if (!userName) {
+      errors.userName = 'Please enter your user name';
     }
     if (!lastName) {
       errors.lastName = 'Please enter your last name';
@@ -48,6 +59,18 @@ export function Doctor_form() {
     }
     if (password !== confirmPassword) {
       errors.confirmPassword = 'Passwords do not match';
+    }
+
+    if (!gender) {
+      errors.gender = 'Please select your gender';
+    }
+    if (!phone) {
+      errors.phone = 'Please enter your phone number';
+    } else if (!/^\d{10}$/.test(phone)) {
+      errors.phone = 'Please enter a valid phone number';
+    }
+    if (!birthDate) {
+      errors.birthDate = 'Please enter your birth date';
     }
 
     if (isDoctor) {
@@ -67,23 +90,40 @@ export function Doctor_form() {
       return;
     }
 
-    // Create form data to send to the server
-    const formData = new FormData();
-    formData.append('username', firstName);
-    formData.append('last_name', lastName);
-    formData.append('email', email);
-    formData.append('password', password);
-    formData.append('user_type', isDoctor ? 'doctor' : 'user');
+    if (Object.keys(errors).length === 0) {
+      const userData = {
+        first_name: firstName,
+        username: userName,
+        last_name: lastName,
+        email: email,
+        password: password,
+        user_type: isDoctor ? 'doctor' : 'person',
+        gender: gender,
+        phone: phone,
+        birth_date: birthDate,
+      }
+      if (isDoctor) {
+        userData.certificate = Certificate;
+        userData.specialty = specialty;
+      }
 
-    // Append profile picture and specialty fields if user is a doctor
-    if (isDoctor) {
-      formData.append('certificate', Certificate);
-      formData.append('specialty', specialty);
-    }
+    // const format ={
+    // "username":"mazen",
+    // "password":"123",
+    // "user_type":"person",
+    // "birth_date":"1998-02-01",
+    // "gender":"male"
+    //  }
 
     // Send form data to the server using Axios
     setIsLoading(true);
-    axios.post('http://127.0.0.1:8000/api/register/', formData)
+    axios.post('http://127.0.0.1:8000/api/register/', JSON.stringify(userData),{
+      headers: {
+        'Content-Type': 'application/json'
+      }
+    })
+     
+    
       .then(response => {
         console.log(response.data);
         setIsLoading(false);
@@ -94,7 +134,7 @@ export function Doctor_form() {
         setIsLoading(false);
         alert('Registration failed. Please try again later.');
       });
-  };
+  } };
 
   const handleCertificateChange = (event) => {
     setCertificate(event.target.files[0]);
@@ -109,7 +149,7 @@ export function Doctor_form() {
   const CertificateField = isDoctor ? (
     <div className="frame-7">
       <div className="error-message">{formErrors.Certificate}</div>
-      <div className="text-wrapper-6">upload certificate</div>
+      {/* <div className="text-wrapper-6">upload certificate</div> */}
       <input type="file" className={`input-field ${formErrors.Certificate && 'error'}`} id="profile-picture" onChange={handleCertificateChange} />
     </div>
   ) : null;
@@ -119,8 +159,8 @@ export function Doctor_form() {
       <div className="error-message">{formErrors.specialty}</div>
       <select className={`input-field ${formErrors.specialty && 'error'}`} id="specialty" value={specialty} onChange={(event) => setSpecialty(event.target.value)}>
         <option value="">Select Specialty</option>
-        <option value="cardiology">Cardiology</option>
-        <option value="neurology">Neurology</option>
+        <option value="cardiology">Addiction Psychiatry</option>
+        <option value="neurology">Child Psychiatry</option>
         <option value="pediatrics">Pediatrics</option>
         <option value="psychiatry">Psychiatry</option>
       </select>
@@ -141,6 +181,11 @@ export function Doctor_form() {
               <h1 className="text-wrapper">Sign up</h1>
               <form onSubmit={handleRegister}>
                 <div className="inputs">
+
+                      <div className="frame-1">
+                          <div className="error-message">{formErrors.userName}</div>
+                          <input type="text" className={`input-field ${formErrors.userName && 'error'}`} placeholder="User Name" id="user-name" value={userName} onChange={(event) => setUserName(event.target.value)} />
+                      </div>   
                       <div className="frame">
                       <div className="error-message">{formErrors.firstName}</div>
                       <input type="text" className={`input-field ${formErrors.firstName && 'error'}`} placeholder="First Name" id="first-name" value={firstName} onChange={(event) => setFirstName(event.target.value)} />
@@ -172,7 +217,47 @@ export function Doctor_form() {
                       <input type="password" className={`input-field  ${formErrors.confirmPassword && 'error'}`} placeholder="Confirm Password" id="confirm-password" value={confirmPassword} onChange={(event) => setConfirmPassword(event.target.value)} />
                       </div>
 
-                     <div className="frame-8">
+                   <div className="frame-9">
+                            <div className="error-message">{formErrors.gender}</div>
+                            
+                            <select
+                              className={`input-field ${formErrors.gender && 'error'}`}
+                              id="gender"
+                              value={gender}
+                              onChange={(event) => setGender(event.target.value)}
+                            >
+                              <option value="">Select Gender</option>
+                              <option value="male">M</option>
+                              <option value="female">F</option>
+                              <option value="other">O</option>
+                            </select>
+                   </div>
+
+                   <div className="frame-10">
+                            <div className="error-message">{formErrors.phone}</div>
+                            
+                            <input
+                              type="tel"
+                              className={`input-field ${formErrors.phone && 'error'}`}
+                              id="phone"
+                              placeholder="Phone"
+                              value={phone}
+                              onChange={(event) => setPhone(event.target.value)}
+                            />
+                   </div>
+
+                   <div className="frame-11">
+                          <div className="error-message">{formErrors.birthDate}</div>
+                          
+                          <input
+                            type="date"
+                            className={`input-field ${formErrors.birthDate && 'error'}`}
+                            id="birth-date"
+                            value={birthDate}
+                            onChange={(event) => setBirthDate(event.target.value)}
+                          />
+                   </div>
+                                        <div id="frame-8">
                     <label htmlFor="is-doctor" className="checkbox-label">
 
                         <input type="checkbox" id="is-doctor" checked={isDoctor} onChange={handleIsDoctorChange} />

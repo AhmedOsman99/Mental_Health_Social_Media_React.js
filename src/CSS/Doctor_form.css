@@ -9,7 +9,7 @@
 .inputs{
 
   position: absolute;
-  top: -60px;
+  top: -130px;
 }
 
 
@@ -60,7 +60,7 @@
   letter-spacing: 0;
   line-height: normal;
   position: absolute;
-  top: 85px !important;
+  top: 16px !important;
   white-space: nowrap;
 }
 
@@ -74,6 +74,18 @@
   top: 283px;
   width: 200px !important;
 }
+
+.sign-up .frame-1 {
+  align-items: flex-start;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  left: 94px;
+  position: absolute;
+  top: 200px !important;
+  width: 412px !important;
+}
+
 
 .sign-up .div {
   color: #ffffff;
@@ -139,7 +151,7 @@
   gap: 8px;
   left: 94px;
   position: absolute;
-  top: 482px !important;
+  top: 470px !important;
   width: 200px !important;
 }
 
@@ -218,7 +230,7 @@
   gap: 8px;
   left: 306px !important;
   position: absolute;
-  top: 480px !important;
+  top: 675px !important;
   width: 200px !important;
 }
 
@@ -229,18 +241,53 @@
   gap: 8px;
   left: 94px !important;
   position: absolute;
-  top: 590px !important;
+  top: 675px !important;
   width: 200px !important;
 }
 
-.sign-up .frame-8 {
+ .sign-up #frame-8 {
   align-items: flex-start;
   display: flex;
   flex-direction: column;
   gap: 8px;
   left: 94px !important;
   position: absolute;
-  top: 800px !important;
+  top: 775px !important;
+  width: 200px !important;
+}
+
+.sign-up .frame-9 {
+  align-items: flex-start;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  left: 306px !important;
+  position: absolute;
+  top: 470px !important;
+  width: 200px !important;
+}
+
+.sign-up .frame-10 {
+  align-items: flex-start;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  left: 94px !important;
+  position: absolute;
+  top: 575px !important;
+  width: 200px !important;
+}
+
+
+
+.sign-up .frame-11 {
+  align-items: flex-start;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  left: 306px !important;
+  position: absolute;
+  top: 575px !important;
   width: 200px !important;
 }
 .sign-up .text-wrapper-5 {
@@ -475,6 +522,7 @@
   opacity: 0;
   width: 0;
   height: 0;
+  
 }
 
 /* Style for the doctor checkbox icon */
