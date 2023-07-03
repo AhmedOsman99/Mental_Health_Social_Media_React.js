@@ -4,16 +4,18 @@
   flex-direction: row;
   justify-content: center;
   width: 100%;
+  /* border: 5px solid black; */
 }
 
 .login .overlap-wrapper {
   background-color: #83c5be;
   border: 1px none;
-  height: 832px;
+  height: 100vh;
   width: 1280px;
 }
 
 .login .overlap {
+  pointer-events: none;
   height: 832px;
   position: relative;
 }
@@ -39,7 +41,7 @@
   height: 832px;
   left: 0;
   position: absolute;
-  top: 1px;
+  top: 100px;
   width: 590px;
 }
 
@@ -115,7 +117,7 @@
   height: 45px;
   left: 273px;
   position: absolute;
-  top: 719px;
+  top: 790px;
   width: 45px;
 }
 
@@ -347,7 +349,7 @@
   height: 166px;
   left: 416px;
   position: absolute;
-  top: 0;
+  top: 120px;
   width: 166px;
 }
 

@@ -10,34 +10,6 @@ export function Register() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
-  // Perform registration logic here using the captured values
-  // firstName, lastName, email, password
-  // You can make an API call to register the user or handle it as per your requirements
-
-  // Example API call using fetch:
-  // fetch("/api/register", {
-  //   method: "POST",
-  //   body: JSON.stringify({
-  //     firstName: firstName,
-  //     lastName: lastName,
-  //     email: email,
-  //     password: password,
-  //   }),
-  //   headers: {
-  //     "Content-Type": "application/json",
-  //   },
-  // })
-  //   .then((response) => response.json())
-  //   .then((data) => {
-  //     // Handle the response data after registration
-  //     console.log(data);
-  //     // Optionally, you can redirect the user to the login page or perform other actions
-  //     navigate("/login");
-  //   })
-  //   .catch((error) => {
-  //     // Handle any errors that occur during registration
-  //     console.error(error);
-  //   });
   const handleRegister = (e) => {
     e.preventDefault();
     if (firstName && lastName && email && password) {
@@ -112,7 +84,6 @@ export function Register() {
                     type="submit"
                     className="doctor_button"
                     name="doctor_button"
-                    onClick={handleRegister}
                   >
                     Doctor
                   </button>
@@ -123,7 +94,6 @@ export function Register() {
                     type="submit"
                     className="user_button"
                     name="user_button"
-                    onClick={handleRegister}
                   >
                     User
                   </button>

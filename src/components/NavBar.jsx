@@ -1,7 +1,8 @@
 import React from "react";
+import { Link } from "react-router-dom";
 import "../CSS/NavBar.css";
 
-export const NavBar = () => {
+export function NavBar() {
   return (
     <div className="home">
       <div className="frame">
@@ -14,11 +15,6 @@ export const NavBar = () => {
                 className="search-input"
                 placeholder="search"
               />
-              {/* <img
-                className="iconamoon-search"
-                alt="Iconamoon search"
-                src="/assets/search.svg"
-              /> */}
             </div>
           </div>
         </div>
@@ -26,48 +22,48 @@ export const NavBar = () => {
       <div className="frame-3">
         <div className="notification-icon-wrapper">
           <div className="notification-icon">
-            <div className="overlap-group-2">
+            <Link to="/signup">
               <img
                 className="group-2"
                 alt="Group"
                 src="/assets/house-door.svg"
               />
-            </div>
+            </Link>
           </div>
         </div>
 
         <div className="notification-icon-wrapper">
           <div className="notification-icon">
-            <div className="overlap-group-2">
+            <Link to="/login">
               <img
                 className="group-2"
                 alt="Group"
                 src="/assets/person-plus.svg"
               />
-            </div>
+            </Link>
           </div>
         </div>
 
         <div className="notification-icon-wrapper">
           <div className="notification-icon">
-            <div className="overlap-group-2">
+            <Link to="/Doctor_form">
               <img className="group-2" alt="Group" src="/assets/bell.svg" />
-            </div>
+            </Link>
           </div>
         </div>
 
         <div className="notification-icon-wrapper">
           <div className="notification-icon">
-            <div className="overlap-group-2">
+            <Link to="/User_form">
               <img
                 className="group-2"
                 alt="Group"
                 src="/assets/pencil-square.svg"
               />
-            </div>
+            </Link>
           </div>
         </div>
       </div>
     </div>
   );
-};
+}

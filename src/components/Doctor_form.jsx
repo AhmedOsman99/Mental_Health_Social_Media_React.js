@@ -60,7 +60,7 @@ export function Doctor_form() {
           <div className="login">
             <div className="overlap-group">
               <div className="rectangle" />
-              <h1 className="text-wrapper">Sign up</h1>
+              <h1 className="text-wrapper">Doctor Form</h1>
               <form onSubmit={handleRegister}>
                 <div className="frame">
                   <div className="div">specialization</div>

@@ -14,6 +14,7 @@
 }
 
 .sign-up .overlap {
+  pointer-events: none;
   height: 832px;
   position: relative;
 }
@@ -22,7 +23,7 @@
   height: 832px;
   left: 0;
   position: absolute;
-  top: 0;
+  top: 90px;
   width: 591px;
 }
 

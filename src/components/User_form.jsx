@@ -29,7 +29,7 @@ export function User_form() {
           <div className="login">
             <div className="overlap-group">
               <div className="rectangle" />
-              <h1 className="text-wrapper">Sign up</h1>
+              <h1 className="text-wrapper">User Form</h1>
               <form onSubmit={handleRegister}>
                 <div className="frame">
                   <div className="div">Age</div>
