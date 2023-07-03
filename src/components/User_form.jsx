@@ -1,13 +1,13 @@
 import React, { useState } from "react";
 import "../CSS/User_form.css";
 import loginImage from "../images/login.PNG";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useLocation } from "react-router-dom";
 export function User_form() {
   const [Age, setAge] = useState("");
   const [gender, setGender] = useState("");
   const [phonenumber, setphonenumber] = useState("");
   const navigate = useNavigate();
-
+  const {firstName, lastName , email , password } = useLocation();
   const handleGenderChange = (e) => {
     setGender(e.target.value);
   };

@@ -43,9 +43,23 @@ export function Register() {
     if (firstName && lastName && email && password) {
       // All required fields are filled, navigate to the appropriate form
       if (e.target.name === "doctor_button") {
-        navigate("/Doctor_form");
+        navigate("/Doctor_form",{
+          state:{
+            firstName: firstName,
+            lastName: lastName,
+            email: email,
+            password: password
+          }
+        });
       } else if (e.target.name === "user_button") {
-        navigate("/User_form");
+        navigate("/User_form",{
+          state:{
+            firstName: firstName,
+            lastName: lastName,
+            email: email,
+            password: password
+          }
+        });
       }
     } else {
       // Display an error message or perform other actions

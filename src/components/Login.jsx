@@ -1,14 +1,20 @@
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import "../CSS/login.css";
 import loginImage from "../images/login.PNG";
 import { useNavigate } from "react-router-dom";
+import AuthContext from "../context/AuthContext";
+
 export function Login() {
-  const [email, setEmail] = useState("");
+  const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [isChecked, setIsChecked] = useState(false);
+  const [errorMessage, setErrorMessage] = useState("");
   const navigate = useNavigate();
-  const handleEmailChange = (event) => {
-    setEmail(event.target.value);
+  let { contextData } = useContext(AuthContext);
+  let { login } = contextData;  
+
+  const handleUsernameChange = (event) => {
+    setUsername(event.target.value);
   };
 
   const handlePasswordChange = (event) => {
@@ -19,11 +25,14 @@ export function Login() {
     setIsChecked(event.target.checked);
   };
 
-  const handleSubmit = (event) => {
+  const handleSubmit = async (event) => {
     event.preventDefault();
-    // Perform login logic or API call using email and password values
-    console.log("Email:", email);
-    console.log("Password:", password);
+    const response = await login(username, password);
+    if (response.status === 401){
+      setErrorMessage("Wrong username or password");
+    } else {
+      setErrorMessage("");
+    }
   };
 
   return (
@@ -36,14 +45,14 @@ export function Login() {
               <h1 className="text-wrapper">Login</h1>
               <form onSubmit={handleSubmit}>
                 <div className="frame">
-                  <div className="div">Email</div>
+                  <div className="div">Username</div>
                   <div className="rectangle-2">
                     <input
-                      type="email"
-                      value={email}
-                      onChange={handleEmailChange}
+                      type="text"
+                      value={username}
+                      onChange={handleUsernameChange}
                       required
-                      placeholder="Enter your email"
+                      placeholder="Enter your username"
                       className="input-field"
                     />
                   </div>
@@ -82,8 +91,14 @@ export function Login() {
                       <div className="text-wrapper-4">Keep me logged in</div>
                     </label>
                   </div>
+
                 </div>
+                <p>asdasda</p>
+                {errorMessage && (
+                  <p style={{ color: "red" }}>{errorMessage}</p>
+                )}
                 <div className="group-3">
+               
                   <button
                     className="link-btn"
                     onClick={() => navigate("/signup")}

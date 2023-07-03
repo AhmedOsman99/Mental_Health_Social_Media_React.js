@@ -10,15 +10,20 @@ import {
   Routes,
   useNavigate,
 } from "react-router-dom";
+import { AuthProvider } from "./context/AuthContext";
 function App() {
   return (
     <div>
+    <AuthProvider>
+
       <Routes>
         <Route path="/signup" element={<Register />} />
         <Route path="/login" element={<Login />} />
         <Route path="/Doctor_form" element={<Doctor_form />} />
         <Route path="/User_form" element={<User_form />} />
       </Routes>
+      </AuthProvider>
+
     </div>
   );
 }
