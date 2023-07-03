@@ -14,7 +14,6 @@ import {
 function App() {
   return (
     <div>
-      <NavBar />
       <Routes>
         <Route path="/signup" element={<Register />} />
         <Route path="/login" element={<Login />} />
