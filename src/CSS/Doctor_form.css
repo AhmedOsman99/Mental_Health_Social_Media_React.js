@@ -100,15 +100,6 @@
   width: fit-content;
 }
 
-.sign-up .rectangle-2 {
-  border: 1px solid;
-  border-color: #83c5be;
-  border-radius: 8px;
-  height: 50px;
-  margin-right: -1px;
-  min-width: 190px;
-  position: relative;
-}
 
 .sign-up .frame-2 {
   align-items: flex-start;
