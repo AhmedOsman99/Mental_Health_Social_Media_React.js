@@ -548,6 +548,34 @@
   top: 670px !important;
 }
 
+.input-field {
+  width: 100%;
+  padding: 10px;
+  font-size: 16px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  box-sizing: border-box;
+  margin-bottom: 10px;
+}
+
+.input-field:focus {
+  outline: none;
+  border-color: #4a90e2;
+  box-shadow: 0 0 5px rgba(74, 144, 226, 0.5);
+}
+
+.input-field::placeholder {
+  color: #999;
+}
+
+.link-btn {
+  background: none;
+  color: aliceblue;
+  text-decoration: underline;
+  padding: 10px;
+  margin: 20px;
+  border: none;
+}  
 
 
 /* Style for the certificate input field */
