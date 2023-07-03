@@ -11,6 +11,7 @@ import {
   useNavigate,
 } from "react-router-dom";
 import { AuthProvider } from "./context/AuthContext";
+import Chat from "./components/chat";
 function App() {
   return (
     <div>
@@ -21,6 +22,7 @@ function App() {
         <Route path="/login" element={<Login />} />
         <Route path="/Doctor_form" element={<Doctor_form />} />
         <Route path="/User_form" element={<User_form />} />
+        <Route path='/chat/:chatId' element={<Chat />} />
       </Routes>
       </AuthProvider>
 
