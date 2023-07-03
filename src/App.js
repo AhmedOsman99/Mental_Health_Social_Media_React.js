@@ -1,6 +1,5 @@
 import React from "react";
 import { Doctor_form } from "./components/Doctor_form";
-import { NavBar } from "./components/NavBar";
 import {
   BrowserRouter,
   Navigate,
@@ -8,12 +7,19 @@ import {
   Routes,
   useNavigate,
 } from "react-router-dom";
+import { AuthProvider } from "./context/AuthContext";
+import { Login } from "./components/Login";
 function App() {
   return (
     <div>
+    <AuthProvider>
+
       <Routes>
-        <Route path="" element={<Doctor_form />} />
+        <Route path="login" element={<Login/>}/>
+        <Route path=""  element={<Doctor_form />} />
       </Routes>
+      </AuthProvider>
+
     </div>
   );
 }

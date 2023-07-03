@@ -191,9 +191,9 @@ export function Doctor_form() {
                       <input type="text" className={`input-field ${formErrors.firstName && 'error'}`} placeholder="First Name" id="first-name" value={firstName} onChange={(event) => setFirstName(event.target.value)} />
                           
                       </div>
-                      <div className="frame-2">
+                      <div id="frame-2">
                       <div className="error-message">{formErrors.lastName}</div>
-                       <input type="text" className={`input-field rectangel-2 ${formErrors.lastName && 'error'}`} placeholder="Last Name" id="last-name" value={lastName} onChange={(event) => setLastName(event.target.value)} />
+                       <input type="text" className={`input-field ${formErrors.lastName && 'error'}`} placeholder="Last Name" id="last-name" value={lastName} onChange={(event) => setLastName(event.target.value)} />
                         
                       </div>
 
@@ -202,7 +202,7 @@ export function Doctor_form() {
                       <div className="ellipse-3" />
                       <div className="ellipse-4" />
 
-                      <div className="frame-3 ">
+                      <div id="frame-3">
                       <div className="error-message">{formErrors.email}</div>
                       <input type="email" className={`input-field  ${formErrors.email && 'error'}`} placeholder="Email" id="email" value={email} onChange={(event) => setEmail(event.target.value)} />
                         
@@ -257,7 +257,7 @@ export function Doctor_form() {
                             onChange={(event) => setBirthDate(event.target.value)}
                           />
                    </div>
-                                        <div id="frame-8">
+                    <div id="frame-8">
                     <label htmlFor="is-doctor" className="checkbox-label">
 
                         <input type="checkbox" id="is-doctor" checked={isDoctor} onChange={handleIsDoctorChange} />
@@ -273,7 +273,7 @@ export function Doctor_form() {
 
                 </div>
               </form>
-              <div className="group">
+              <div className="link-login">
                 <button className="link-btn" onClick={() => navigate("/login")}>
                   Do you have an Account? Login
                 </button>

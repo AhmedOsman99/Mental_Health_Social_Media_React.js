@@ -101,7 +101,7 @@
 }
 
 
-.sign-up .frame-2 {
+#frame-2 {
   align-items: flex-start;
   display: flex;
   flex-direction: column;
@@ -134,8 +134,7 @@
   width: 120px;
   position: relative;
 }
-
-.sign-up .frame-3 {
+ #frame-3 {
   align-items: flex-start;
   display: flex;
   flex-direction: column;
@@ -577,5 +576,12 @@
   border: none;
 }  
 
+
+.link-login{
+
+    position: absolute;
+    top: 700px !important;
+    left: 150px !important;
+}
 
 /* Style for the certificate input field */
