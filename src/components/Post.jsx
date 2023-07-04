@@ -6,10 +6,13 @@ import { postContext } from "./contexts/PostContext";
 import { NavLink } from "react-router-dom";
 import { fetchComments, addNewComment } from "../APIs/utils";
 import { CommentModal } from "./ModalDialog";
+import AuthContext from "../context/AuthContext";
 
 export function Post(props) {
   let post = props.post;
   let { posts, setPosts } = useContext(postContext);
+  let { contextData } = useContext(AuthContext);
+  let { user, userInfo } = contextData;
 
   let [period, setPeriod] = useState("");
   let setDate = () => {
@@ -176,35 +179,43 @@ export function Post(props) {
             </div>
           </div>
         </div>
-        <div className="col pb-2 text-end">
-          <button
-            type="button"
-            className={`btn btn-icon text-decoration-none p-0 pt-1`}
-            onClick={openEditModal}
-          >
-            <i className="bi bi-pencil-square fs-5 mx-3"></i>
-          </button>
-          <button
-            type="button"
-            className={`btn btn-icon text-decoration-none p-0 pt-1`}
-            onClick={deletePost}
-          >
-            <i className="bi bi-x-lg fs-5 "></i>
-          </button>
-        </div>
+        {/* {console.log(userInfo.user.id)} */}
+        {/* {console.log(post.creator_id)} */}
+        {userInfo.user.id === post.creator_id ? (
+          <div className="col pb-2 text-end">
+            <button
+              type="button"
+              className="btn btn-icon text-decoration-none p-0 pt-1"
+              onClick={openEditModal}
+            >
+              <i className="bi bi-pencil-square fs-5 mx-3"></i>
+            </button>
+            <button
+              type="button"
+              className="btn btn-icon text-decoration-none p-0 pt-1"
+              onClick={deletePost}
+            >
+              <i className="bi bi-x-lg fs-5"></i>
+            </button>
+          </div>
+        ) : null}
 
         <div className="row pt-3 pb-3">
           <div className="col-auto text-start">{postData.content}</div>
         </div>
-        <div className="row pt-3 pb-3">
+        <div className="row pt-3 pb-3 justify-content-center">
           <div className="col-auto text-start">
             <img
+              className=""
               src={profileImage}
               alt="Profile"
+              // className="rounded-circle "
               style={{
                 height: "400px",
+                // left: "24px",
                 objectFit: "contain",
-                width: "550px",
+                // top: "24px",
+                width: "100%",
               }}
             />
           </div>

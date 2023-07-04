@@ -1,4 +1,5 @@
-import React, { useState, useContext } from "react";
+import React, { useContext, useState } from "react";
+
 import {
   BsHouse,
   BsPersonPlus,
@@ -12,10 +13,11 @@ import { NavLink } from "react-router-dom";
 import { FriendRequestModalDialog } from "./ModalDialog";
 import AuthContext from "../context/AuthContext";
 import { getFriendRequests } from "../APIs/utils";
+import AuthContext from "../context/AuthContext";
 
 export function NavBar() {
   let { contextData } = useContext(AuthContext);
-  let { user, userInfo } = contextData;
+  let { logOut } = contextData;
   const [showModal, setShowModal] = useState(false);
 
   const friendRequests = getFriendRequests();
@@ -67,7 +69,13 @@ export function NavBar() {
                 <BsChatDots size={20} />
               </div>
             </NavLink>
-            <NavLink className="nav-link" href="#">
+            <NavLink className="nav-link" to="/profile">
+              <div className="circle-icon">
+                <BsPersonCircle size={30} />
+              </div>
+            </NavLink>
+
+            <NavLink className="nav-link" onClick={logOut}>
               <div className="circle-icon">
                 <BsBoxArrowRight size={20} />
               </div>

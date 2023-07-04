@@ -70,6 +70,7 @@ export const AuthProvider = ({ children }) => {
     localStorage.removeItem("userInfo");
     setUserInfo(null);
     setAuthTokens(null);
+    navigate('/login');
   };
 
   const refreshToken = async () => {

@@ -9,7 +9,6 @@ import Chat from "./components/chat";
 import { Login } from "./components/Login";
 import { Profile } from "./components/Profile";
 import { NavBar } from "./components/NavBar";
-
 function App() {
   return (
     <div className="App">
