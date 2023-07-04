@@ -14,8 +14,8 @@ import { EditModal, PhotosModal } from "./ModalDialog";
 import { Post } from "./Post";
 import { postContext } from "./contexts/PostContext";
 import AuthContext from "../context/AuthContext";
-import { addNewPost, fetchProfilePosts } from "../APIs/utils";
-
+import { addNewPost, fetchProfilePosts, getUserById } from "../APIs/utils";
+import { useParams } from "react-router";
 export function Profile() {
   const [showEditModal, setShowEditModal] = useState(false);
   const [showPhotosModal, setShowPhotosModal] = useState(false);
@@ -40,11 +40,27 @@ export function Profile() {
   };
 
   let fetchAllPosts = async () => {
-    let response = await fetchProfilePosts();
+    let response = await fetchProfilePosts(id);
     setPosts(response.data);
   };
+  let [userById, setuserById] = useState({
+    id: "",
+    first_name: "",
+    last_name: "",
+  });
+  // console.log(userById.id);
+
+  let getUser = async () => {
+    let userdata = await getUserById(id);
+    console.log(userdata.data.user.id);
+    setuserById(userdata.data.user);
+    return userdata;
+  };
+  // console.log(getUser);
+  const { id } = useParams();
   useEffect(() => {
     fetchAllPosts();
+    getUser();
   }, []);
 
   const handleEditAbout = () => {
@@ -90,7 +106,7 @@ export function Profile() {
                 className="text-md-start mt-4 mt-md-0 d-flex flex-column align-items-md-start"
               >
                 <div className="d-flex align-items-center">
-                  <h1 className="mb-4">Dr. Ahmed Kamal</h1>
+                  <h1 className="mb-4">Dr. {userById.first_name}</h1>
                 </div>
                 <div className="buttons-wrapper">
                   <Button

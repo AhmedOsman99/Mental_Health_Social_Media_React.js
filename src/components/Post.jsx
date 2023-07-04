@@ -3,12 +3,14 @@ import profileImage from "../images/profile.jpg";
 import axios from "axios";
 import { Modal, Button } from "react-bootstrap";
 import { postContext } from "./contexts/PostContext";
+import { NavLink } from "react-router-dom";
+import { fetchComments, addNewComment } from "../APIs/utils";
+import { CommentModal } from "./ModalDialog";
 
 export function Post(props) {
   let post = props.post;
   let { posts, setPosts } = useContext(postContext);
 
-  // console.log(post);
   let [period, setPeriod] = useState("");
   let setDate = () => {
     const currentDate = new Date();
@@ -60,30 +62,28 @@ export function Post(props) {
 
   let [showEditModal, setShowEditModal] = useState(false);
   let [editedContent, setEditedContent] = useState(post.content);
-  // Open the edit modal
+
   const openEditModal = () => {
     setEditedContent(postData.content);
     setShowEditModal(true);
   };
 
-  // Close the edit modal
   const closeEditModal = () => {
     setShowEditModal(false);
   };
 
-  // Save the edited content
   const saveEditedContent = () => {
     const updatedPostData = { ...postData, content: editedContent };
     setPostData(updatedPostData);
     setShowEditModal(false);
-    let authTokens = JSON.parse(localStorage.getItem('authTokens'));
-     let accessToken = authTokens.access;
-     console.log(accessToken);
-     let config = {
-       headers: {
-         Authorization: `Bearer ${accessToken}`,
-       },
-     };
+    let authTokens = JSON.parse(localStorage.getItem("authTokens"));
+    let accessToken = authTokens.access;
+    console.log(accessToken);
+    let config = {
+      headers: {
+        Authorization: `Bearer ${accessToken}`,
+      },
+    };
     axios
       .put(`http://localhost:8000/post/${post.id}`, updatedPostData, config)
       .then((response) => {
@@ -102,6 +102,42 @@ export function Post(props) {
   useEffect(() => {
     setDate();
   }, [period, like, postData]);
+
+  //////////////////////////////////////////////
+
+  const [showCommentModal, setShowCommentModal] = useState(false);
+  const [newComment, setNewComment] = useState({});
+  const [comments, setComments] = useState([]);
+
+  const openCommentModal = () => {
+    fetchComments(post.id).then((response) => {
+      setComments(response.data);
+      setShowCommentModal(true);
+    });
+  };
+
+  const closeCommentModal = () => {
+    setShowCommentModal(false);
+  };
+
+  const handleAddComment = async () => {
+    try {
+      const response = await addNewComment(post.id, newComment);
+      console.log(response.data); // Optionally, you can handle the response data
+      const addedComment = response.data; // Get the added comment from the response
+      setComments((prevComments) => [...prevComments, addedComment]); // Update the comments array with the added comment
+      setNewComment(""); // Clear the new comment text input
+    } catch (error) {
+      console.log(error); // Handle any errors that occur during the request
+    }
+  };
+  const handleCommentTextChange = (event) => {
+    setNewComment(event.target.value);
+  };
+
+  useEffect(() => {
+    handleAddComment();
+  }, []);
 
   return (
     <div>
@@ -127,7 +163,12 @@ export function Post(props) {
           />
         </div>
         <div className="col-auto pb-2">
-          <div className="fs-5 fw-semibold">{post.creator}</div>
+          <NavLink
+            to={`/profile/${post.creator_id}`}
+            className="fs-5 fw-semibold"
+          >
+            {post.creator}
+          </NavLink>{" "}
           <div className="row">
             <div className="col-auto">
               {period}{" "}
@@ -141,7 +182,7 @@ export function Post(props) {
             className={`btn btn-icon text-decoration-none p-0 pt-1`}
             onClick={openEditModal}
           >
-            <i class="bi bi-pencil-square fs-5 mx-3"></i>
+            <i className="bi bi-pencil-square fs-5 mx-3"></i>
           </button>
           <button
             type="button"
@@ -153,26 +194,19 @@ export function Post(props) {
         </div>
 
         <div className="row pt-3 pb-3">
-          <div className="col-auto text-start">
-            {/* Add content for the second row within the middle column */}
-            {postData.content}
-          </div>
+          <div className="col-auto text-start">{postData.content}</div>
         </div>
         <div className="row pt-3 pb-3">
           <div className="col-auto text-start">
-            {/* Add content for the second row within the middle column */}
             <img
-            src={profileImage}
-            alt="Profile"
-            // className="rounded-circle "
-            style={{
-              height: "400px",
-              // left: "24px",
-              objectFit: "contain",
-              // top: "24px",
-              width: "550px",
-            }}
-          />
+              src={profileImage}
+              alt="Profile"
+              style={{
+                height: "400px",
+                objectFit: "contain",
+                width: "550px",
+              }}
+            />
           </div>
         </div>
         <div className="row justify-content-between pb-0 pt-2">
@@ -200,35 +234,25 @@ export function Post(props) {
             </button>
           </div>
           <div className="col-lg-4">
-            <button type="button" className="btn btn-icon text-decoration-none">
+            <button
+              type="button"
+              className="btn btn-icon text-decoration-none"
+              onClick={openCommentModal}
+            >
               <i className="bi bi-chat px-2 fs-5"></i>
               Comment
             </button>
           </div>
         </div>
       </div>
-      {/* Edit post modal */}
-      <Modal show={showEditModal} onHide={closeEditModal} size="lg" centered>
-        <Modal.Header closeButton>
-          <Modal.Title>Edit Post</Modal.Title>
-        </Modal.Header>
-        <Modal.Body>
-          <textarea
-            className="form-control"
-            rows={4}
-            value={editedContent}
-            onChange={(e) => setEditedContent(e.target.value)}
-          ></textarea>
-        </Modal.Body>
-        <Modal.Footer>
-          <Button variant="secondary" onClick={closeEditModal}>
-            Cancel
-          </Button>
-          <Button variant="primary" onClick={saveEditedContent}>
-            Save
-          </Button>
-        </Modal.Footer>
-      </Modal>
+      <CommentModal
+        show={showCommentModal}
+        handleClose={closeCommentModal}
+        handleAddComment={handleAddComment}
+        commentText={newComment}
+        handleCommentTextChange={handleCommentTextChange}
+        comments={comments}
+      />
     </div>
   );
 }

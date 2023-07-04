@@ -19,7 +19,7 @@ function App() {
           <Routes>
             <Route path="/chat/:chatId" element={<Chat />} />
             <Route path="home" element={<Home />} />
-            <Route path="profile" element={<Profile />} />
+            <Route path="profile/:id" element={<Profile />} />
             <Route path="login" element={<Login />} />
             <Route path="" element={<Doctor_form />} />
           </Routes>

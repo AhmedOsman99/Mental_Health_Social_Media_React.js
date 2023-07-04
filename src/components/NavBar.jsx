@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
 import {
   BsHouse,
   BsPersonPlus,
@@ -10,12 +10,16 @@ import { Navbar, Nav } from "react-bootstrap";
 import "../CSS/style.css";
 import { NavLink } from "react-router-dom";
 import { FriendRequestModalDialog } from "./ModalDialog";
+import AuthContext from "../context/AuthContext";
 import { getFriendRequests } from "../APIs/utils";
 
 export function NavBar() {
+  let { contextData } = useContext(AuthContext);
+  let { user, userInfo } = contextData;
   const [showModal, setShowModal] = useState(false);
 
   const friendRequests = getFriendRequests();
+  // const friendRequests = [];
 
   const handlePersonPlusClick = () => {
     setShowModal(true);
@@ -69,7 +73,7 @@ export function NavBar() {
               </div>
             </NavLink>
           </Nav>
-          <NavLink className="nav-link" to="/profile">
+          <NavLink className="nav-link" to={`/profile/${userInfo.user.id}`}>
             <div className="circle-icon">
               <BsPersonCircle size={30} />
             </div>
