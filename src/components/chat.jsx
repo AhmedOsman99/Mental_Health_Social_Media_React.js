@@ -3,6 +3,7 @@ import { useParams } from 'react-router-dom';
 import { getChats } from '../APIs/utils';
 import AuthContext from '../context/AuthContext';
 import WebSocketInstance from '../Websokcets/websocket';
+import '../CSS/chats.css'; // Import the styles for the chat component
 
 const Chat = () => {
   let { contextData } = useContext(AuthContext);
@@ -10,7 +11,7 @@ const Chat = () => {
   const [messages, setMessages] = useState([]);
   const [messageInput, setMessageInput] = useState('');
   const [username, setUsername] = useState(userInfo.username);
-  const [chats, setChats] = useState([]); // Add state for the retrieved chats
+  const [chats, setChats] = useState([]);
   const { chatId } = useParams(); 
 
   useEffect(() => {
@@ -36,7 +37,7 @@ const Chat = () => {
       }
     };
     fetchChats();
-  }, []); // Make the request to retrieve the chats when the component is mounted
+  }, []);
 
   const handleNewMessages = messages => {
     setMessages(messages);
@@ -68,33 +69,42 @@ const Chat = () => {
         recursion(callback);
       }
     }, 100);
+    console.log(chats[0]) 
   };
 
   return (
-    <div>
-      <ul>
-        {chats.map(chat => (
-          <li key={chat.id}>
-            <a href={`/chat/${chat.id}`}>{chat.participant1.username} - {chat.participant2.username}</a>
-          </li>
-        ))}
-      </ul>
-      <textarea
-        id="chat-log"
-        cols="100"
-        rows="20"
-        value={messages.map(message => `${message.author.username}: ${message.message}`).join('\n')}
-        readOnly
-      ></textarea>
-      <form onSubmit={handleMessageSubmit}>
-        <input
-          id="chat-message-input"
-          type="text"
-          value={messageInput}
-          onChange={event => setMessageInput(event.target.value)}
-        />
-        <input id="chat-message-submit" type="submit" value="Send" />
-      </form>
+    <div className="chat-container"> {/* Add a class to the chat container */}
+      <div className="chat-sidebar"> {/* Add a sidebar for the chat list */}
+        <h2>Chats</h2>
+        <ul className="chat-list"> {/* Add a class to the chat list */}
+          {chats.map(chat => (
+            
+            <li key={chat.id}>
+              <a href={`/chat/${chat.id}`}>{chat.participant1.username} </a>
+            </li>
+          ))}
+        </ul>
+      </div>
+      <div className="chat-main"> {/* Add a main section for the chat log and message input */}
+        <div className="chat-log-container"> {/* Add a container for the chat log */}
+          <textarea
+            id="chat-log"
+            className="chat-log" 
+            value={messages.map(message => `${message.author.username}: ${message.message}`).join('\n')}
+            readOnly
+          ></textarea>
+        </div>
+        <form className="message-form" onSubmit={handleMessageSubmit}> {/* Add a form for the message input */}
+          <input
+            id="chat-message-input"
+            className="message-input"
+            type="text"
+            value={messageInput}
+            onChange={event => setMessageInput(event.target.value)}
+          />
+          <button id="chat-message-submit" className="send-button" type="submit">Send</button> {/* Use a button instead of an input */}
+        </form>
+      </div>
     </div>
   );
 };
