@@ -10,15 +10,12 @@ import { Navbar, Nav } from "react-bootstrap";
 import "../CSS/style.css";
 import { NavLink } from "react-router-dom";
 import { FriendRequestModalDialog } from "./ModalDialog";
+import { getFriendRequests } from "../APIs/utils";
 
 export function NavBar() {
   const [showModal, setShowModal] = useState(false);
 
-  const friendRequests = [
-    { id: 1, name: "John Doe" },
-    { id: 2, name: "Jane Smith" },
-    { id: 3, name: "Alice Johnson" },
-  ];
+  const friendRequests = getFriendRequests();
 
   const handlePersonPlusClick = () => {
     setShowModal(true);
