@@ -3,10 +3,13 @@ import profileImage from "../images/profile.jpg";
 import axios from "axios";
 import { Modal, Button } from "react-bootstrap";
 import { postContext } from "./contexts/PostContext";
+import AuthContext from "../context/AuthContext";
 
 export function Post(props) {
   let post = props.post;
   let { posts, setPosts } = useContext(postContext);
+  let { contextData } = useContext(AuthContext);
+  let { user, userInfo } = contextData;
 
   // console.log(post);
   let [period, setPeriod] = useState("");
@@ -76,14 +79,14 @@ export function Post(props) {
     const updatedPostData = { ...postData, content: editedContent };
     setPostData(updatedPostData);
     setShowEditModal(false);
-    let authTokens = JSON.parse(localStorage.getItem('authTokens'));
-     let accessToken = authTokens.access;
-     console.log(accessToken);
-     let config = {
-       headers: {
-         Authorization: `Bearer ${accessToken}`,
-       },
-     };
+    let authTokens = JSON.parse(localStorage.getItem("authTokens"));
+    let accessToken = authTokens.access;
+    console.log(accessToken);
+    let config = {
+      headers: {
+        Authorization: `Bearer ${accessToken}`,
+      },
+    };
     axios
       .put(`http://localhost:8000/post/${post.id}`, updatedPostData, config)
       .then((response) => {
@@ -135,22 +138,26 @@ export function Post(props) {
             </div>
           </div>
         </div>
-        <div className="col pb-2 text-end">
-          <button
-            type="button"
-            className={`btn btn-icon text-decoration-none p-0 pt-1`}
-            onClick={openEditModal}
-          >
-            <i class="bi bi-pencil-square fs-5 mx-3"></i>
-          </button>
-          <button
-            type="button"
-            className={`btn btn-icon text-decoration-none p-0 pt-1`}
-            onClick={deletePost}
-          >
-            <i className="bi bi-x-lg fs-5 "></i>
-          </button>
-        </div>
+        {/* {console.log(userInfo.user.id)} */}
+        {/* {console.log(post.creator_id)} */}
+        {userInfo.user.id === post.creator_id ? (
+          <div className="col pb-2 text-end">
+            <button
+              type="button"
+              className="btn btn-icon text-decoration-none p-0 pt-1"
+              onClick={openEditModal}
+            >
+              <i className="bi bi-pencil-square fs-5 mx-3"></i>
+            </button>
+            <button
+              type="button"
+              className="btn btn-icon text-decoration-none p-0 pt-1"
+              onClick={deletePost}
+            >
+              <i className="bi bi-x-lg fs-5"></i>
+            </button>
+          </div>
+        ) : null}
 
         <div className="row pt-3 pb-3">
           <div className="col-auto text-start">
@@ -158,21 +165,22 @@ export function Post(props) {
             {postData.content}
           </div>
         </div>
-        <div className="row pt-3 pb-3">
+        <div className="row pt-3 pb-3 justify-content-center">
           <div className="col-auto text-start">
             {/* Add content for the second row within the middle column */}
             <img
-            src={profileImage}
-            alt="Profile"
-            // className="rounded-circle "
-            style={{
-              height: "400px",
-              // left: "24px",
-              objectFit: "contain",
-              // top: "24px",
-              width: "550px",
-            }}
-          />
+              className=""
+              src={profileImage}
+              alt="Profile"
+              // className="rounded-circle "
+              style={{
+                height: "400px",
+                // left: "24px",
+                objectFit: "contain",
+                // top: "24px",
+                width: "100%",
+              }}
+            />
           </div>
         </div>
         <div className="row justify-content-between pb-0 pt-2">
