@@ -1,0 +1,587 @@
+.sign-up {
+  background-color: #83c5be;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  width: 100%;
+}
+
+.inputs{
+
+  position: absolute;
+  top: -130px;
+}
+
+
+.sign-up .overlap-wrapper {
+  background-color: #83c5be;
+  border: 1px none;
+  height: 100vh;
+  width: 1280px;
+}
+
+.sign-up .overlap {
+  height: 820px !important;
+  position: relative;
+  overflow: hidden;
+}
+
+.sign-up .login {
+  height: 832px;
+  left: 0;
+  position: absolute;
+  top: 0;
+  width: 591px;
+}
+
+.sign-up .overlap-group {
+  height: 833px;
+  left: 1px;
+  position: relative;
+  top: -1px;
+  width: 590px;
+}
+
+.sign-up .rectangle {
+  background-color: #4b827c;
+  height: 820px !important;
+  left: 0;
+  position: absolute;
+  top: 1px;
+  width: 590px;
+}
+
+.sign-up .text-wrapper {
+  color: #ffffff;
+  font-family: "Poppins-SemiBold", Helvetica;
+  font-size: 48px;
+  font-weight: 600;
+  left: 203px;
+  letter-spacing: 0;
+  line-height: normal;
+  position: absolute;
+  top: 16px !important;
+  white-space: nowrap;
+}
+
+.sign-up .frame {
+  align-items: flex-start;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  left: 94px;
+  position: absolute;
+  top: 283px;
+  width: 200px !important;
+}
+
+.sign-up .frame-1 {
+  align-items: flex-start;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  left: 94px;
+  position: absolute;
+  top: 200px !important;
+  width: 412px !important;
+}
+
+
+.sign-up .div {
+  color: #ffffff;
+  font-family: "Poppins-Regular", Helvetica;
+  font-size: 20px;
+  font-weight: 400;
+  letter-spacing: 0;
+  line-height: normal;
+  margin-top: -1px;
+  position: relative;
+  white-space: nowrap;
+  width: fit-content;
+}
+
+
+#frame-2 {
+  align-items: flex-start;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  left: 306px;
+  position: absolute;
+  top: 283px;
+  width: 200px !important;
+}
+
+.sign-up .text-wrapper-2 {
+  color: #ffffff;
+  font-family: "Poppins-Regular", Helvetica;
+  font-size: 20px;
+  font-weight: 400;
+  letter-spacing: 0;
+  line-height: normal;
+  margin-top: -1px;
+  position: relative;
+  white-space: nowrap;
+  width: fit-content;
+}
+
+.sign-up .rectangle-3 {
+  border: 1px solid;
+  border-color: #83c5be;
+  border-radius: 8px;
+  height: 50px;
+  margin-right: -1px;
+  width: 120px;
+  position: relative;
+}
+ #frame-3 {
+  align-items: flex-start;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  left: 94px;
+  position: absolute;
+  top: 470px !important;
+  width: 200px !important;
+}
+
+.sign-up .text-wrapper-3 {
+  color: #ffffff;
+  font-family: "Poppins-Regular", Helvetica;
+  font-size: 20px;
+  font-weight: 400;
+  letter-spacing: 0;
+  line-height: normal;
+  margin-top: 5px;
+  position: relative;
+  white-space: nowrap;
+  width: fit-content;
+}
+
+.sign-up .rectangle-4 {
+  border: 1px solid;
+  border-color: #83c5be;
+  border-radius: 8px;
+  height: 50px;
+  margin-right: -1px;
+  min-width: 401px;
+  position: relative;
+}
+/* Email word*/
+.sign-up .frame-4 {
+  align-items: flex-start;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  left: 94px;
+  position: absolute;
+  top: 380px;
+  width: 200px !important;
+}
+
+/* Email word*/
+.sign-up .text-wrapper-4 {
+  color: #ffffff;
+  font-family: "Poppins-Regular", Helvetica;
+  font-size: 20px;
+  font-weight: 400;
+  letter-spacing: 0;
+  line-height: normal;
+  margin-top: -1px;
+  position: relative;
+  white-space: nowrap;
+  width: fit-content;
+}
+
+.sign-up .rectangle-5 {
+  border: 1px solid;
+  border-color: #83c5be;
+  border-radius: 8px;
+  height: 50px;
+  min-width: 401px;
+  position: relative;
+}
+
+.sign-up .frame-5 {
+  align-items: flex-start;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  left: 306px !important;
+  position: absolute;
+  top: 380px !important;
+  width: 200px !important;
+}
+
+.sign-up .frame-6 {
+  align-items: flex-start;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  left: 306px !important;
+  position: absolute;
+  top: 675px !important;
+  width: 200px !important;
+}
+
+.sign-up .frame-7 {
+  align-items: flex-start;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  left: 94px !important;
+  position: absolute;
+  top: 675px !important;
+  width: 200px !important;
+}
+
+ .sign-up #frame-8 {
+  align-items: flex-start;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  left: 94px !important;
+  position: absolute;
+  top: 775px !important;
+  width: 200px !important;
+}
+
+.sign-up .frame-9 {
+  align-items: flex-start;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  left: 306px !important;
+  position: absolute;
+  top: 470px !important;
+  width: 200px !important;
+}
+
+.sign-up .frame-10 {
+  align-items: flex-start;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  left: 94px !important;
+  position: absolute;
+  top: 575px !important;
+  width: 200px !important;
+}
+
+
+
+.sign-up .frame-11 {
+  align-items: flex-start;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  left: 306px !important;
+  position: absolute;
+  top: 575px !important;
+  width: 200px !important;
+}
+.sign-up .text-wrapper-5 {
+  color: #ffffff;
+  font-family: "Poppins-Regular", Helvetica;
+  font-size: 20px;
+  font-weight: 400;
+  letter-spacing: 0;
+  line-height: normal;
+  margin-top: -1px;
+  position: relative;
+  white-space: nowrap;
+  width: fit-content;
+  /* border: 5px solid black; */
+}
+
+.sign-up .rectangle-6 {
+  border: 1px solid;
+  border-color: #83c5be;
+  border-radius: 8px;
+  height: 50px;
+  min-width: 401px;
+  position: relative;
+  left: 0px;
+}
+
+.sign-up .ellipse {
+  background-color: #c8c9fc33;
+  border-radius: 53px;
+  height: 106px;
+  left: 41px;
+  position: absolute;
+  top: 557px;
+  width: 106px;
+}
+
+.sign-up .ellipse-2 {
+  background-color: #c8c9fc33;
+  border-radius: 53px;
+  height: 106px;
+  left: 434px;
+  position: absolute;
+  top: 570px;
+  width: 106px;
+}
+
+.sign-up .ellipse-3 {
+  background-color: #c8c9fc33;
+  border-radius: 22.5px;
+  height: 45px;
+  left: 273px;
+  position: absolute;
+  top: 719px;
+  width: 45px;
+}
+
+.sign-up .ellipse-4 {
+  background-color: #c8c9fc33;
+  border-radius: 22.5px;
+  height: 45px;
+  left: 90px;
+  position: absolute;
+  top: 166px;
+  width: 45px;
+}
+
+.sign-up .group {
+  top: 700px !important;
+  left: 150px !important;
+  display: flex;
+  /* border: 5px solid black; */
+}
+
+.error {
+  border-color: red !important;
+}
+
+.error-message {
+  color: red;
+  font-size: 14px;
+  margin-top: 4px;
+}
+.sign-up .text-wrapper-6 {
+  color: #ffffff;
+  font-family: "Poppins-Regular", Helvetica;
+  font-size: 22px !important;
+  font-weight: 600 !important;
+  left: 220px !important;
+  letter-spacing: 0;
+  line-height: normal;
+  position: absolute;
+  top: 20px !important; 
+  white-space: nowrap;
+}
+
+/* .sign-up .text-wrapper-7 {
+    -webkit-text-stroke: 0.1px #202141;
+    color: #83c5be;
+    font-family: "Poppins-Medium", Helvetica;
+    font-size: 14px;
+    font-weight: 500;
+  
+    letter-spacing: 0;
+    line-height: normal;
+    position: absolute;
+    left: 32px;
+    top: 20;
+    white-space: nowrap;
+  } */
+
+.sign-up .rectangle-7 {
+    background-color: #83c5be;
+    height: 1px;
+    left: 0px;
+    position: absolute;
+    top: 14px;
+    width: 18px;
+  }
+.link-btn {
+  background: none;
+  color: aliceblue;
+  text-decoration: underline;
+  padding: 10px;
+  margin: 20px;
+  border: none;
+}
+.sign-up .div-wrapper-doctor {
+  background-color: #83c5be;
+  border-radius: 8px;
+  height: 25px;
+  left: 94px;
+  position: absolute;
+  top: 691px;
+  width: 401px;
+}
+
+.sign-up .SignUp_button {
+  width: 100%;
+  background-color: #83c5be;
+  border-radius: 8px;
+}
+
+.sign-up .user_button {
+  width: 100%;
+  background-color: #83c5be;
+  border-radius: 8px;
+}
+.sign-up .div-wrapper-two {
+  background-color: #83c5be;
+  border-radius: 8px;
+  height: 25px;
+  left: 320px;
+  position: absolute;
+  top: 691px;
+  width: 201px;
+}
+
+.sign-up .text-wrapper-8 {
+  color: #ffffff;
+  font-family: "Poppins-SemiBold", Helvetica;
+  font-size: 16px;
+  font-weight: 600;
+  left: 170px;
+  letter-spacing: 0;
+  line-height: normal;
+  position: absolute;
+  top: 19px;
+  white-space: nowrap;
+}
+
+.sign-up .ellipse-5 {
+  background-color: #c8c9fc33;
+  border-radius: 83px;
+  height: 166px;
+  left: 416px;
+  position: absolute;
+  top: 0;
+  width: 166px;
+}
+
+.sign-up .frame-6 {
+  align-items: center;
+  display: flex;
+  gap: 4px;
+  left: 346px;
+  padding: 8px;
+  position: absolute;
+  top: 598px;
+  width: fit-content;
+}
+
+.sign-up .text-wrapper-9 {
+  color: #ffffff;
+  font-family: "Poppins-Regular", Helvetica;
+  font-size: 20px;
+  font-weight: 400;
+  letter-spacing: 0;
+  line-height: normal;
+  position: relative;
+  white-space: nowrap;
+  width: fit-content;
+}
+
+.sign-up .uil-image-upload {
+  height: 24px;
+  min-width: 24px;
+  position: relative;
+}
+
+.sign-up .untitled-design {
+  height: 712px;
+  left: 564px;
+  object-fit: cover;
+  position: absolute;
+  top: 82px;
+  width: 716px;
+}
+
+/* Style for the doctor checkbox label */
+.checkbox-label {
+  display: flex;
+  align-items: center;
+  margin-bottom: 1rem;
+  font-size: 1.2rem;
+  color: #f1eeee;
+  cursor: pointer;
+}
+
+/* Style for the doctor checkbox */
+#is-doctor {
+  position: absolute;
+  opacity: 0;
+  width: 0;
+  height: 0;
+  
+}
+
+/* Style for the doctor checkbox icon */
+#is-doctor + .checkmark {
+  display: inline-block;
+  position: relative;
+  width: 1.5rem;
+  height: 1.5rem;
+  margin-right: 0.5rem;
+  border: 1px solid #333;
+  background-color: #fff;
+  cursor: pointer;
+}
+
+/* Style for the doctor checkbox icon when it's checked */
+#is-doctor:checked + .checkmark::after {
+  content: "";
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 0.5rem;
+  height: 0.5rem;
+  background-color: #29302f;
+  border-radius: 50%;
+}
+
+
+.sign-up .frame-8{
+
+  position: absolute;
+  top: 670px !important;
+}
+
+.input-field {
+  width: 100%;
+  padding: 10px;
+  font-size: 16px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  box-sizing: border-box;
+  margin-bottom: 10px;
+}
+
+.input-field:focus {
+  outline: none;
+  border-color: #4a90e2;
+  box-shadow: 0 0 5px rgba(74, 144, 226, 0.5);
+}
+
+.input-field::placeholder {
+  color: #999;
+}
+
+.link-btn {
+  background: none;
+  color: aliceblue;
+  text-decoration: underline;
+  padding: 10px;
+  margin: 20px;
+  border: none;
+}  
+
+
+.link-login{
+
+    position: absolute;
+    top: 700px !important;
+    left: 150px !important;
+}
+
+/* Style for the certificate input field */
