@@ -7,11 +7,13 @@ import { Doctor_form } from "./components/Doctor_form";
 import { AuthProvider } from "./context/AuthContext";
 import Chat from "./components/chat";
 import {Login } from "./components/Login"
+import { NavBar } from "./components/NavBar";
 function App() {
   return (
     <div className="App">
     <AuthProvider>
     <PostContextProvider>
+      < NavBar/>
       <Routes>
         <Route path='/chat/:chatId' element={<Chat />} />
           <Route path="home" element={<Home />} />
