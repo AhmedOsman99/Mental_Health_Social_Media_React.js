@@ -4,13 +4,6 @@ import { Home } from "./components/Home";
 import "./App.css";
 import { PostContextProvider } from "./components/contexts/PostContextProvider";
 import { Doctor_form } from "./components/Doctor_form";
-import {
-  BrowserRouter,
-  Navigate,
-  Route,
-  Routes,
-  useNavigate,
-} from "react-router-dom";
 import { AuthProvider } from "./context/AuthContext";
 import { Login } from "./components/Login";
 
@@ -21,7 +14,6 @@ function App() {
     
       <PostContextProvider>
         <Routes>
-          <Route path="" element={<Home />} />
           <Route path="home" element={<Home />} />
           <Route path="login" element={<Login/>}/>
         <Route path=""  element={<Doctor_form />} />

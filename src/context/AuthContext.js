@@ -30,6 +30,7 @@ export const AuthProvider = ({ children }) => {
       setAuthTokens(data);
       localStorage.setItem('authTokens', JSON.stringify(data));
       setUser(jwt_decode(data.access));
+      getUser()
       navigate('/');
 
     } 
@@ -37,24 +38,24 @@ export const AuthProvider = ({ children }) => {
     return response;
   };
 
-//   let getUser = async () => {
-//     let authTokens = JSON.parse(localStorage.getItem('authTokens'));
-//     let accessToken = authTokens.access;
-//     let config = {
-//       headers: {
-//         Authorization: `Bearer ${accessToken}`,
-//       },
-//     };
+  let getUser = async () => {
+    let authTokens = JSON.parse(localStorage.getItem('authTokens'));
+    let accessToken = authTokens.access;
+    let config = {
+      headers: {
+        Authorization: `Bearer ${accessToken}`,
+      },
+    };
 
-//     try {
-//       const response = await axios.get('http://127.0.0.1:8000/getuser/', config);
-//       const userInfo = response.data;
-//       localStorage.setItem('userInfo', JSON.stringify(userInfo));
-//       setUserInfo(userInfo); // update userInfo state with the user information
-//     } catch (error) {
-//       console.log(error);
-//     }
-//   };
+    try {
+      const response = await axios.get('http://127.0.0.1:8000/api/getuser/', config);
+      const userInfo = response.data;
+      localStorage.setItem('userInfo', JSON.stringify(userInfo));
+      setUserInfo(userInfo);
+    } catch (error) {
+      console.log(error);
+    }
+  };
 
   const logOut = () => {
     localStorage.removeItem('authTokens');
@@ -65,7 +66,7 @@ export const AuthProvider = ({ children }) => {
 
   const refreshToken = async () => {
     const refresh = authTokens.refresh;
-    const response = await fetch('http://localhost:8000/api/token/refresh/', {
+    const response = await fetch('http://localhost:8000/token/refresh/', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
@@ -87,7 +88,7 @@ export const AuthProvider = ({ children }) => {
   };
 
   useEffect(()=> {
-    let fourMinutes = 1000 * 60 * .2
+    let fourMinutes = 1000 * 60 * 8
     let interval =  setInterval(()=> {
         if(authTokens){
           refreshToken()
@@ -101,7 +102,7 @@ export const AuthProvider = ({ children }) => {
     login: login,
     user: user,
     authTokens: authTokens,
-    // getUser: getUser,
+    getUser: getUser,
     userInfo: userInfo,
     logOut: logOut
   };

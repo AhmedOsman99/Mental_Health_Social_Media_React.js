@@ -1,5 +1,5 @@
 import React, { useEffect, useState, useContext } from "react";
-import "../css/home.css";
+import "../CSS/home.css";
 import axios from "axios";
 import profileImage from "../images/profile.jpg";
 import { Post } from "./Post";

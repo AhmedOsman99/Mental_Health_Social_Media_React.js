@@ -127,7 +127,7 @@ export function Doctor_form() {
       .then(response => {
         console.log(response.data);
         setIsLoading(false);
-        alert('Registration successful!');
+        navigate('/login')
       })
       .catch(error => {
         console.error(error);
