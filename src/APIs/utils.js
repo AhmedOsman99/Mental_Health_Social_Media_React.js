@@ -1,7 +1,7 @@
 import axios from "axios"
 
 export const getChats = async () => {
-    let authTokens = JSON.parse(localStorage.getItem('authTokens'));
+     let authTokens = JSON.parse(localStorage.getItem('authTokens'));
      let accessToken = authTokens.access;
      console.log(accessToken);
      let config = {
@@ -9,13 +9,13 @@ export const getChats = async () => {
          Authorization: `Bearer ${accessToken}`,
        },
      };
-    let response = await axios.get('http://127.0.0.1:8000/chat/mychats/', config)
-    return response
+     let response = await axios.get('http://127.0.0.1:8000/chat/mychats/', config)
+     return response
 }
 
 export const addNewPost = async (newPost) => {
     let authTokens = JSON.parse(localStorage.getItem('authTokens'));
-     let accessToken = authTokens.access;
+    let accessToken = authTokens.access;
      console.log(accessToken);
      let config = {
        headers: {
@@ -33,7 +33,7 @@ export const sendRequest = async (recipient_id) => {
         "recipient_id" : recipient_id
     }
     let authTokens = JSON.parse(localStorage.getItem('authTokens'));
-     let accessToken = authTokens.access;
+    let accessToken = authTokens.access;
      console.log(accessToken);
      let config = {
        headers: {
@@ -93,5 +93,20 @@ export const respondToFriendRequest = async (friendRequestId, response) => {
     console.error(error);
   }
 };
+
+
+export const getFriends = async () => {
+  let authTokens = JSON.parse(localStorage.getItem('authTokens'));
+  let accessToken = authTokens.access;
+  console.log(accessToken);
+  let config = {
+    headers: {
+      Authorization: `Bearer ${accessToken}`,
+    },
+  };
+  let response = await axios.get('http://127.0.0.1:8000/connect/list_friends/', config)
+  return response
+}
+
 
 
