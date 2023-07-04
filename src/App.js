@@ -1,31 +1,24 @@
 import React from "react";
-import { Login } from "./components/Login";
-import { Register } from "./components/Register";
+import { Route, Routes } from "react-router-dom";
+import { Home } from "./components/Home";
+import "./App.css";
+import { PostContextProvider } from "./components/contexts/PostContextProvider";
 import { Doctor_form } from "./components/Doctor_form";
-import { User_form } from "./components/User_form";
-import {
-  BrowserRouter,
-  Navigate,
-  Route,
-  Routes,
-  useNavigate,
-} from "react-router-dom";
 import { AuthProvider } from "./context/AuthContext";
 import Chat from "./components/chat";
 function App() {
   return (
-    <div>
+    <div className="App">
     <AuthProvider>
-
+    <PostContextProvider>
       <Routes>
-        <Route path="/signup" element={<Register />} />
-        <Route path="/login" element={<Login />} />
-        <Route path="/Doctor_form" element={<Doctor_form />} />
-        <Route path="/User_form" element={<User_form />} />
         <Route path='/chat/:chatId' element={<Chat />} />
-      </Routes>
+          <Route path="home" element={<Home />} />
+          <Route path="login" element={<Login/>}/>
+        <Route path=""  element={<Doctor_form />} />
+        </Routes>
+      </PostContextProvider>
       </AuthProvider>
-
     </div>
   );
 }

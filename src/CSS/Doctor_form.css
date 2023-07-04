@@ -6,6 +6,13 @@
   width: 100%;
 }
 
+.inputs{
+
+  position: absolute;
+  top: -130px;
+}
+
+
 .sign-up .overlap-wrapper {
   background-color: #83c5be;
   border: 1px none;
@@ -14,8 +21,9 @@
 }
 
 .sign-up .overlap {
-  height: 832px;
+  height: 820px !important;
   position: relative;
+  overflow: hidden;
 }
 
 .sign-up .login {
@@ -36,7 +44,7 @@
 
 .sign-up .rectangle {
   background-color: #4b827c;
-  height: 832px;
+  height: 820px !important;
   left: 0;
   position: absolute;
   top: 1px;
@@ -52,7 +60,7 @@
   letter-spacing: 0;
   line-height: normal;
   position: absolute;
-  top: 131px;
+  top: 16px !important;
   white-space: nowrap;
 }
 
@@ -64,8 +72,20 @@
   left: 94px;
   position: absolute;
   top: 283px;
-  width: 189px;
+  width: 200px !important;
 }
+
+.sign-up .frame-1 {
+  align-items: flex-start;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  left: 94px;
+  position: absolute;
+  top: 200px !important;
+  width: 412px !important;
+}
+
 
 .sign-up .div {
   color: #ffffff;
@@ -80,17 +100,8 @@
   width: fit-content;
 }
 
-.sign-up .rectangle-2 {
-  border: 1px solid;
-  border-color: #83c5be;
-  border-radius: 8px;
-  height: 50px;
-  margin-right: -1px;
-  min-width: 190px;
-  position: relative;
-}
 
-.sign-up .frame-2 {
+#frame-2 {
   align-items: flex-start;
   display: flex;
   flex-direction: column;
@@ -98,7 +109,7 @@
   left: 306px;
   position: absolute;
   top: 283px;
-  width: 120px;
+  width: 200px !important;
 }
 
 .sign-up .text-wrapper-2 {
@@ -123,16 +134,15 @@
   width: 120px;
   position: relative;
 }
-
-.sign-up .frame-3 {
+ #frame-3 {
   align-items: flex-start;
   display: flex;
   flex-direction: column;
   gap: 8px;
   left: 94px;
   position: absolute;
-  top: 471px;
-  width: fit-content;
+  top: 470px !important;
+  width: 200px !important;
 }
 
 .sign-up .text-wrapper-3 {
@@ -166,7 +176,7 @@
   left: 94px;
   position: absolute;
   top: 380px;
-  width: fit-content;
+  width: 200px !important;
 }
 
 /* Email word*/
@@ -197,12 +207,79 @@
   display: flex;
   flex-direction: column;
   gap: 8px;
-  left: 94px;
+  left: 306px !important;
   position: absolute;
-  top: 475px;
-  width: fit-content;
+  top: 380px !important;
+  width: 200px !important;
 }
 
+.sign-up .frame-6 {
+  align-items: flex-start;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  left: 306px !important;
+  position: absolute;
+  top: 675px !important;
+  width: 200px !important;
+}
+
+.sign-up .frame-7 {
+  align-items: flex-start;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  left: 94px !important;
+  position: absolute;
+  top: 675px !important;
+  width: 200px !important;
+}
+
+ .sign-up #frame-8 {
+  align-items: flex-start;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  left: 94px !important;
+  position: absolute;
+  top: 775px !important;
+  width: 200px !important;
+}
+
+.sign-up .frame-9 {
+  align-items: flex-start;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  left: 306px !important;
+  position: absolute;
+  top: 470px !important;
+  width: 200px !important;
+}
+
+.sign-up .frame-10 {
+  align-items: flex-start;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  left: 94px !important;
+  position: absolute;
+  top: 575px !important;
+  width: 200px !important;
+}
+
+
+
+.sign-up .frame-11 {
+  align-items: flex-start;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  left: 306px !important;
+  position: absolute;
+  top: 575px !important;
+  width: 200px !important;
+}
 .sign-up .text-wrapper-5 {
   color: #ffffff;
   font-family: "Poppins-Regular", Helvetica;
@@ -268,20 +345,31 @@
 }
 
 .sign-up .group {
-  top: 750px;
+  top: 700px !important;
+  left: 150px !important;
   display: flex;
   /* border: 5px solid black; */
+}
+
+.error {
+  border-color: red !important;
+}
+
+.error-message {
+  color: red;
+  font-size: 14px;
+  margin-top: 4px;
 }
 .sign-up .text-wrapper-6 {
   color: #ffffff;
   font-family: "Poppins-Regular", Helvetica;
-  font-size: 14px;
-  font-weight: 400;
-  left: 0;
+  font-size: 22px !important;
+  font-weight: 600 !important;
+  left: 220px !important;
   letter-spacing: 0;
   line-height: normal;
   position: absolute;
-  top: 0;
+  top: 20px !important; 
   white-space: nowrap;
 }
 
@@ -300,14 +388,14 @@
     white-space: nowrap;
   } */
 
-/* .sign-up .rectangle-7 {
+.sign-up .rectangle-7 {
     background-color: #83c5be;
     height: 1px;
     left: 0px;
     position: absolute;
     top: 14px;
     width: 18px;
-  } */
+  }
 .link-btn {
   background: none;
   color: aliceblue;
@@ -407,3 +495,93 @@
   top: 82px;
   width: 716px;
 }
+
+/* Style for the doctor checkbox label */
+.checkbox-label {
+  display: flex;
+  align-items: center;
+  margin-bottom: 1rem;
+  font-size: 1.2rem;
+  color: #f1eeee;
+  cursor: pointer;
+}
+
+/* Style for the doctor checkbox */
+#is-doctor {
+  position: absolute;
+  opacity: 0;
+  width: 0;
+  height: 0;
+  
+}
+
+/* Style for the doctor checkbox icon */
+#is-doctor + .checkmark {
+  display: inline-block;
+  position: relative;
+  width: 1.5rem;
+  height: 1.5rem;
+  margin-right: 0.5rem;
+  border: 1px solid #333;
+  background-color: #fff;
+  cursor: pointer;
+}
+
+/* Style for the doctor checkbox icon when it's checked */
+#is-doctor:checked + .checkmark::after {
+  content: "";
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 0.5rem;
+  height: 0.5rem;
+  background-color: #29302f;
+  border-radius: 50%;
+}
+
+
+.sign-up .frame-8{
+
+  position: absolute;
+  top: 670px !important;
+}
+
+.input-field {
+  width: 100%;
+  padding: 10px;
+  font-size: 16px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  box-sizing: border-box;
+  margin-bottom: 10px;
+}
+
+.input-field:focus {
+  outline: none;
+  border-color: #4a90e2;
+  box-shadow: 0 0 5px rgba(74, 144, 226, 0.5);
+}
+
+.input-field::placeholder {
+  color: #999;
+}
+
+.link-btn {
+  background: none;
+  color: aliceblue;
+  text-decoration: underline;
+  padding: 10px;
+  margin: 20px;
+  border: none;
+}  
+
+
+.link-login{
+
+    position: absolute;
+    top: 700px !important;
+    left: 150px !important;
+}
+
+/* Style for the certificate input field */
