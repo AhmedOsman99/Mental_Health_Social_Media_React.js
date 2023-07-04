@@ -1,0 +1,45 @@
+html {
+  background-color: #e9ecef;
+}
+
+body {
+  background-color: #e9ecef;
+}
+
+.grey-bg {
+  background-color: #e9ecef;
+  padding-top: 1%;
+}
+
+.white-bg {
+  background-color: white;
+  border-radius: 30px;
+}
+
+.grey-input {
+  background-color: #e9ecef;
+  border-radius: 30px;
+  border: 0;
+  width: 100%;
+  height: 45px;
+  padding-left: 15px;
+  padding-right: 15px;
+}
+.grey-input:focus {
+  outline: none !important;
+}
+
+.ellipse-2 {
+  height: 32px;
+  min-width: 32px;
+  object-fit: cover;
+  position: relative;
+}
+
+.ellipse-3 {
+  height: 50px;
+  left: 24px;
+  object-fit: cover;
+  top: 24px;
+  width: 50px;
+}
