@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState, useContext } from "react";
 import {
   Container,
   Row,
@@ -12,11 +12,40 @@ import "bootstrap/dist/css/bootstrap.min.css";
 // import '../css/style.css';
 import { EditModal, PhotosModal } from "./ModalDialog";
 import { Post } from "./Post";
+import { postContext } from "./contexts/PostContext";
+import AuthContext from "../context/AuthContext";
+import { addNewPost, fetchProfilePosts } from "../APIs/utils";
+
 export function Profile() {
   const [showEditModal, setShowEditModal] = useState(false);
   const [showPhotosModal, setShowPhotosModal] = useState(false);
   const [aboutContent, setAboutContent] = useState("about her");
   const [photos, setPhotos] = useState([]); // Array to store the photos
+  let { contextData } = useContext(AuthContext);
+  let { user, userInfo } = contextData;
+  let { posts, setPosts } = useContext(postContext);
+
+  let [newPost, setNewPost] = useState({
+    content: "",
+  });
+
+  let operationHandler = (event) => {
+    setNewPost({ content: event.target.value });
+  };
+
+  let addPost = async () => {
+    let response = await addNewPost(newPost);
+    // setPosts({...posts, newPost});
+    console.log(response.data);
+  };
+
+  let fetchAllPosts = async () => {
+    let response = await fetchProfilePosts();
+    setPosts(response.data);
+  };
+  useEffect(() => {
+    fetchAllPosts();
+  }, []);
 
   const handleEditAbout = () => {
     setShowEditModal(true);
@@ -155,7 +184,11 @@ export function Profile() {
                   <h2>Posts</h2>
                 </Row>
                 <Row>
-                  <Post />
+                  {posts.length > 0 ? (
+                    posts.map((post) => <Post post={post} />)
+                  ) : (
+                    <p>No posts to show.</p>
+                  )}
                 </Row>
               </Col>
             </Row>
