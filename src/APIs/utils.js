@@ -122,3 +122,4 @@ export const respondToFriendRequest = async (friendRequestId, response) => {
     console.error(error);
   }
 };
+

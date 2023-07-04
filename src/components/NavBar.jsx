@@ -12,6 +12,7 @@ import { NavLink } from "react-router-dom";
 import { FriendRequestModalDialog } from "./ModalDialog";
 import { getFriendRequests } from "../APIs/utils";
 
+
 export function NavBar() {
   const [showModal, setShowModal] = useState(false);
 
@@ -63,17 +64,19 @@ export function NavBar() {
                 <BsChatDots size={20} />
               </div>
             </NavLink>
-            <NavLink className="nav-link" href="#">
+            <NavLink className="nav-link" to="/profile">
+            <div className="circle-icon">
+              <BsPersonCircle size={30} />
+            </div>
+          </NavLink>
+
+          <NavLink className="nav-link" >
               <div className="circle-icon">
                 <BsBoxArrowRight size={20} />
               </div>
             </NavLink>
           </Nav>
-          <NavLink className="nav-link" to="/profile">
-            <div className="circle-icon">
-              <BsPersonCircle size={30} />
-            </div>
-          </NavLink>
+         
         </Navbar.Collapse>
       </Navbar>
 
