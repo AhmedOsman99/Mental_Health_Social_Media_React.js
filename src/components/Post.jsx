@@ -165,7 +165,7 @@ export function Post(props) {
         <div className="col-auto pb-2">
           <NavLink
             to={`/profile/${post.creator_id}`}
-            className="fs-5 fw-semibold"
+            className="fs-5 fw-semibold nav-link"
           >
             {post.creator}
           </NavLink>{" "}
