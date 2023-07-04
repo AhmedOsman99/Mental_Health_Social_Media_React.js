@@ -123,3 +123,24 @@ export const respondToFriendRequest = async (friendRequestId, response) => {
   }
 };
 
+
+
+export const getUserById = async (userId) => {
+  let id = {
+    id : userId
+  };
+  let authTokens = JSON.parse(localStorage.getItem("authTokens"));
+  let accessToken = authTokens.access;
+  console.log(accessToken);
+  let config = {
+    headers: {
+      Authorization: `Bearer ${accessToken}`,
+    },
+  };
+  let response = await axios.post(
+    "http://127.0.0.1:8000/api/get-user-id/",
+    id,
+    config
+  );
+  return response;
+};
