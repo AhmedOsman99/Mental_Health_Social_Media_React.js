@@ -76,10 +76,18 @@ export function Post(props) {
     const updatedPostData = { ...postData, content: editedContent };
     setPostData(updatedPostData);
     setShowEditModal(false);
+    let authTokens = JSON.parse(localStorage.getItem('authTokens'));
+     let accessToken = authTokens.access;
+     console.log(accessToken);
+     let config = {
+       headers: {
+         Authorization: `Bearer ${accessToken}`,
+       },
+     };
     axios
-      .put(`http://localhost:8000/post/${post.id}`, updatedPostData)
+      .put(`http://localhost:8000/post/${post.id}`, updatedPostData, config)
       .then((response) => {
-        console.log(response.data);
+        console.log(response);
       })
       .catch((error) => {
         console.log(error);

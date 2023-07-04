@@ -6,6 +6,7 @@ import { PostContextProvider } from "./components/contexts/PostContextProvider";
 import { Doctor_form } from "./components/Doctor_form";
 import { AuthProvider } from "./context/AuthContext";
 import Chat from "./components/chat";
+import {Login } from "./components/Login"
 function App() {
   return (
     <div className="App">

@@ -4,8 +4,12 @@ import axios from "axios";
 import profileImage from "../images/profile.jpg";
 import { Post } from "./Post";
 import { postContext } from "./contexts/PostContext";
+import AuthContext from "../context/AuthContext";
+import { addNewPost, fetchPosts } from "../APIs/utils";
 
 export function Home() {
+  let { contextData } = useContext(AuthContext);
+  let { user, userInfo } = contextData;
   let { posts, setPosts } = useContext(postContext);
 
   let [newPost, setNewPost] = useState({
@@ -16,9 +20,19 @@ export function Home() {
     setNewPost({ content: event.target.value });
   };
 
-  let addNewPost = () => {
-    axios.post("http://localhost:8000/post/", newPost).then((response) => {}); //need user_id
-  };
+  let addPost = async () => {
+    let response = await addNewPost(newPost);
+    // setPosts({...posts, newPost});
+    console.log(response.data);
+  }
+
+  let fetchAllPosts = async () => {
+      let response =  await fetchPosts()
+      setPosts(response.data);
+  }
+  useEffect( () => {
+     fetchAllPosts();
+  }, []);
 
   return (
     // <div>
@@ -35,7 +49,7 @@ export function Home() {
                   className="rounded-circle ellipse-2"
                 />
               </div>
-              <div className="col-auto fs-5 fw-semibold">User-name</div>
+              <div className="col-auto fs-5 fw-semibold">{userInfo.user.first_name}</div>
             </div>
             <div className="row px-5 pt-4">
               <div className="col-auto">
@@ -84,7 +98,7 @@ export function Home() {
                     borderRadius: "20px",
                     padding: "9px 15px 9px 15px",
                   }}
-                  onClick={addNewPost}
+                  onClick={addPost}
                 >
                   Post
                 </button>
@@ -117,7 +131,7 @@ export function Home() {
                   className="rounded-circle ellipse-2"
                 /> {/* user_profile_image*/}
               </div>
-              <div className="col-auto fw-semibold">User-name</div>  {/* user_name  */}
+              <div className="col-auto fw-semibold"></div>  {/* chat part  */}
             </div>
           </div>
         </div>
