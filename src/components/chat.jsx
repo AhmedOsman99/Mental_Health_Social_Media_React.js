@@ -10,7 +10,7 @@ const Chat = () => {
   let { user, userInfo } = contextData;
   const [messages, setMessages] = useState([]);
   const [messageInput, setMessageInput] = useState('');
-  const [username, setUsername] = useState(userInfo.username);
+  const [username, setUsername] = useState(userInfo.user.username);
   const [chats, setChats] = useState([]);
   const { chatId } = useParams(); 
   const chatLogContainerRef = useRef(null); // Create a ref for the chat log container

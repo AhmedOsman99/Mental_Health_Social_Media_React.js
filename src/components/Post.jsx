@@ -1,5 +1,5 @@
 import React, { useContext, useEffect, useState } from "react";
-import profileImage from "../images/profile.jpg";
+// import profileImage from "../images/profile.jpg";
 import axios from "axios";
 import { Modal, Button } from "react-bootstrap";
 import { postContext } from "./contexts/PostContext";
@@ -133,7 +133,7 @@ export function Post(props) {
 
   useEffect(() => {
     setDate();
-  }, [posts]);
+  }, []);
 
   //////////////////////////////////////////////
 
@@ -204,7 +204,7 @@ export function Post(props) {
       >
         <div className="col-auto pt-1">
           <img
-            src={profileImage}
+            // src={profileImage}
             alt="Profile"
             className="rounded-circle "
             style={{
@@ -254,23 +254,25 @@ export function Post(props) {
         <div className="row pt-3 pb-3">
           <div className="col-auto text-start">{postData.content}</div>
         </div>
-        <div className="row pt-3 pb-3 justify-content-center">
-          <div className="col-auto text-start">
-            <img
-              className=""
-              src={profileImage}
-              alt="Profile"
-              // className="rounded-circle "
-              style={{
-                height: "400px",
-                // left: "24px",
-                objectFit: "contain",
-                // top: "24px",
-                width: "100%",
-              }}
-            />
+        {post.image !== null ? (
+          <div className="row pt-3 pb-3 justify-content-center">
+            <div className="col-auto text-start">
+              <img
+                className=""
+                src={post.image}
+                alt="post_image"
+                // className="rounded-circle "
+                style={{
+                  height: "400px",
+                  // left: "24px",
+                  objectFit: "contain",
+                  // top: "24px",
+                  width: "100%",
+                }}
+              />
+            </div>
           </div>
-        </div>
+        ) : null}
         <div className="row justify-content-between pb-0 pt-2">
           <div className="col-auto ">
             <i className="bi bi-hand-thumbs-up mdi-like px-2"></i>

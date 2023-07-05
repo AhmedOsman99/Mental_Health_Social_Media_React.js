@@ -14,7 +14,13 @@ import { EditModal, PhotosModal } from "./ModalDialog";
 import { Post } from "./Post";
 import { postContext } from "./contexts/PostContext";
 import AuthContext from "../context/AuthContext";
-import { addNewPost, fetchProfilePosts, getUserById } from "../APIs/utils";
+import {
+  addNewPost,
+  fetchProfilePosts,
+  getUserById,
+  sendRequest,
+  isFriend,
+} from "../APIs/utils";
 import { useParams } from "react-router";
 export function Profile() {
   const [showEditModal, setShowEditModal] = useState(false);
@@ -78,6 +84,45 @@ export function Profile() {
   const handleViewPhotos = () => {
     setShowPhotosModal(true);
   };
+
+  // handle conect button
+  const [connectButtonText, setConnectButtonText] = useState("Connect");
+  const [connectButtonVariant, setConnectButtonVariant] = useState("light");
+  const [connectButtonDisabled, setConnectButtonDisabled] = useState(false);
+
+  const sendConnectRequest = async () => {
+    let response = await sendRequest(id);
+    console.log(response);
+    window.location.reload();
+  };
+
+  useEffect(() => {
+    const fetchData = async () => {
+      const response = await isFriend(id);
+      console.log(response);
+      const friendStatus = response.data[0].status;
+
+      if (friendStatus === "pending") {
+        // if friend request is pending, update button to show "Pending"
+        setConnectButtonText("Pending");
+        setConnectButtonVariant("secondary");
+        setConnectButtonDisabled(true);
+      } else if (friendStatus === "accepted") {
+        // if friend request is accepted, update button to show "Friend"
+        setConnectButtonText("Friend");
+        setConnectButtonVariant("secondary");
+        setConnectButtonDisabled(true);
+      } else {
+        // if friend request is rejected, update button to show "Connect"
+        setConnectButtonText("Connect");
+        setConnectButtonVariant("light");
+        setConnectButtonDisabled(false);
+      }
+    };
+
+    fetchData();
+  }, [id]);
+
   return (
     <div className="app-container">
       <Container>
@@ -120,6 +165,46 @@ export function Profile() {
                       </h1>
                     )}
                   </h1>
+                </div>
+                <div className="buttons-wrapper">
+                  <Button
+                    onClick={sendConnectRequest}
+                    className="custom-button frame-3 me-3 connect-button"
+                    variant={connectButtonVariant}
+                    style={{
+                      backgroundColor: "#83c5be",
+                      borderRadius: "20px",
+                      minWidth: "120px",
+                    }}
+                    disabled={connectButtonDisabled}
+                  >
+                    <span>{connectButtonText}</span>
+                  </Button>
+                  <Button
+                    className="custom-button frame-3 me-3 reservation-button"
+                    variant="light"
+                    style={{
+                      backgroundColor: "#83c5be",
+                      borderRadius: "20px",
+                      minWidth: "120px",
+                    }}
+                  >
+                    <span>Reservation</span>
+                  </Button>
+                  <Button
+                    className="frame-4 me-3 btn-outline-secondary"
+                    variant="#83c5be"
+                    style={{ borderRadius: "20px", minWidth: "120px" }}
+                  >
+                    {/* <span>Message</span> */}
+                  </Button>
+                  <Button
+                    className="div-wrapper btn-outline-secondary"
+                    variant="#83c5be"
+                    style={{ borderRadius: "20px", minWidth: "120px" }}
+                  >
+                    {/* <span>More</span> */}
+                  </Button>
                 </div>
 
                 {userType === "doctor" && userInfo.user.id === id && (

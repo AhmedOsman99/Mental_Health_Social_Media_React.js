@@ -16,10 +16,10 @@ export const getChats = async () => {
 export const addNewPost = async (newPost) => {
   let authTokens = JSON.parse(localStorage.getItem("authTokens"));
   let accessToken = authTokens.access;
-  console.log(accessToken);
   let config = {
     headers: {
       Authorization: `Bearer ${accessToken}`,
+      "Content-Type": "multipart/form-data", // Set the content type to multipart/form-data
     },
   };
   let response = await axios.post(
@@ -225,6 +225,28 @@ export const getFriendList = async () => {
   };
   let response = await axios.get(
     "http://127.0.0.1:8000/connect/list_friends/",
+    config
+  );
+  return response;
+};
+
+export const isFriend = async (user_id) => {
+  let authTokens = JSON.parse(localStorage.getItem("authTokens"));
+  let accessToken = authTokens ? authTokens.access : null;
+  console.log(accessToken);
+  let config = {
+    headers: {
+      Authorization: `Bearer ${accessToken}`,
+    },
+  };
+
+  let id = {
+    id: user_id,
+  };
+
+  let response = await axios.post(
+    "http://127.0.0.1:8000/connect/is_friend/",
+    id,
     config
   );
   return response;

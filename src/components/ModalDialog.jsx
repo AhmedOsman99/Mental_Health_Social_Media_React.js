@@ -99,13 +99,13 @@ export function FriendRequestModalDialog({
         <Modal.Title>Friend Requests</Modal.Title>
       </Modal.Header>
       <Modal.Body>
-        {friendRequests.length > 0 ? (
+        {friendRequests ? (
           friendRequests.map((request) => (
             <div
               key={request.id}
               className="friend-request d-flex justify-content-between"
             >
-              <span className="my-3 fw-bold">{request.name}</span>
+              <span className="my-3 fw-bold">{request.sender.first_name+ " " +request.sender.last_name }</span>
               <div className="friend-request-buttons">
                 <Button
                   className="accept mx-3 my-2"
