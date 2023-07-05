@@ -19,7 +19,7 @@ import AuthContext from "../context/AuthContext";
 export function NavBar() {
 
   let { contextData } = useContext(AuthContext);
-  let { logOut } = contextData;
+  let { logOut , authToken } = contextData;
   const [showModal, setShowModal] = useState(false);
 
   const friendRequests = getFriendRequests();
@@ -40,7 +40,7 @@ export function NavBar() {
 
   return (
     <>
-      <Navbar
+     {authToken && <Navbar
         expand="lg"
         variant="light"
         style={{ backgroundColor: "#83c5be" }}
@@ -84,7 +84,7 @@ export function NavBar() {
           </Nav>
          
         </Navbar.Collapse>
-      </Navbar>
+      </Navbar> }
 
       <FriendRequestModalDialog
         showModal={showModal}

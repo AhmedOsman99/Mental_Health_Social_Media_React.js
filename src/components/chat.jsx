@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useContext } from 'react';
+import React, { useState, useEffect, useContext, useRef } from 'react';
 import { useParams } from 'react-router-dom';
 import { getChats } from '../APIs/utils';
 import AuthContext from '../context/AuthContext';
@@ -13,6 +13,7 @@ const Chat = () => {
   const [username, setUsername] = useState(userInfo.username);
   const [chats, setChats] = useState([]);
   const { chatId } = useParams(); 
+  const chatLogContainerRef = useRef(null); // Create a ref for the chat log container
 
   useEffect(() => {
     WebSocketInstance.connect(chatId);
@@ -41,10 +42,12 @@ const Chat = () => {
 
   const handleNewMessages = messages => {
     setMessages(messages);
+    scrollToBottom()
   };
 
   const handleNewMessage = message => {
     setMessages(prevMessages => [...prevMessages, message]);
+    scrollToBottom()
   };
 
   const handleMessageSubmit = event => {
@@ -72,8 +75,14 @@ const Chat = () => {
     console.log(chats[0]) 
   };
 
+  const chatLogContainer = document.querySelector('.chat-log-container');
+
+  function scrollToBottom() {
+    chatLogContainerRef.current.scrollTop = chatLogContainerRef.current.scrollHeight;
+  }
+
   return (
-    <div className="chat-container"> {/* Add a class to the chat container */}
+    <div  className="chat-container"> {/* Add a class to the chat container */}
       <div className="chat-sidebar"> {/* Add a sidebar for the chat list */}
         <h2>Chats</h2>
         <ul className="chat-list"> {/* Add a class to the chat list */}
@@ -86,14 +95,23 @@ const Chat = () => {
         </ul>
       </div>
       <div className="chat-main"> {/* Add a main section for the chat log and message input */}
-        <div className="chat-log-container"> {/* Add a container for the chat log */}
-          <textarea
-            id="chat-log"
-            className="chat-log" 
-            value={messages.map(message => `${message.author.username}: ${message.message}`).join('\n')}
-            readOnly
-          ></textarea>
-        </div>
+      <div className="chat-log-container" ref={chatLogContainerRef}> {/* Add the ref to the chat log container */}
+  {messages.map((message, index) => (
+    <div
+      key={index}
+      className={`chat-message`}
+    >
+      <div
+      key={index}
+      className={`chat-message ${message.author.username === username ? 'me' : 'participant'}`}
+    >
+      {message.message}
+
+    </div>
+    <br></br>
+    </div>
+  ))}
+</div>
         <form className="message-form" onSubmit={handleMessageSubmit}> {/* Add a form for the message input */}
           <input
             id="chat-message-input"

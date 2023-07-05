@@ -1,6 +1,9 @@
 .chat-container {
     display: flex;
     height: 100%;
+    margin-top: 10%;
+    max-height: 400px; /* Set a fixed height for the container */
+    overflow-y: auto;
   }
   
   .chat-sidebar {
@@ -74,3 +77,40 @@
   .send-button:hover {
     background-color: #0062cc;
   }
+  .chat-list li a {
+    display: block;
+    padding: 10px;
+    color: #000;
+    text-decoration: none;
+  }
+  
+  .chat-list li a:hover {
+    background-color: #e6e6e6;
+  }
+  .chat-message{
+    margin-bottom : 10px;
+  }
+  .chat-message.me {
+    background-color: #fff;
+    display: inline-block;
+    padding: 8px 12px;
+    background-color: #83c5be;
+    color: #fff;
+    border-radius: 15px;
+    margin-left: 80%;    /* margin-bottom: 70px;
+    
+    margin-left: 0px; */
+    float: right;
+  }
+ 
+  .chat-message.participant {
+    background-color: #83c5be;
+    display: inline-block;
+    padding: 8px 12px;
+    background-color: #83c5be;
+    color: #fff;
+    border-radius: 15px;
+    margin-bottom: 10px;
+
+  }
+
