@@ -66,7 +66,7 @@ export function Doctor_form() {
     }
     if (!phone) {
       errors.phone = 'Please enter your phone number';
-    } else if (!/^\d{10}$/.test(phone)) {
+    } else if (!/^\d{11}$/.test(phone)) {
       errors.phone = 'Please enter a valid phone number';
     }
     if (!birthDate) {
@@ -134,7 +134,8 @@ export function Doctor_form() {
         setIsLoading(false);
         alert('Registration failed. Please try again later.');
       });
-  } };
+    }
+  };
 
   const handleCertificateChange = (event) => {
     setCertificate(event.target.files[0]);

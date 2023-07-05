@@ -22,6 +22,7 @@ function App() {
       <Routes>
       <Route exact path='/' element={<PrivateRoute/>}>
               <Route path='/chat/:chatId' element={<Chat />} />
+              <Route path='/chats/' element={<Chat />} />
               <Route path="home" element={<Home />} />
             <Route path="profile/:id" element={<Profile />} />
             </Route>
