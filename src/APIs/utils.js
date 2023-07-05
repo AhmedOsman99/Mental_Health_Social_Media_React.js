@@ -195,7 +195,8 @@ export const getFriendList = async () => {
   return response;
 };
 
-export const isFriend = async (id) => {
+
+export const isFriend = async (user_id) => {
   let authTokens = JSON.parse(localStorage.getItem("authTokens"));
   let accessToken = authTokens? authTokens.access : null ;
   console.log(accessToken);
@@ -204,7 +205,13 @@ export const isFriend = async (id) => {
       Authorization: `Bearer ${accessToken}`,
     },
   };
-  let response = await axios.get(
+
+  let id={
+
+    id : user_id
+  }
+
+  let response = await axios.post(
     "http://127.0.0.1:8000/connect/is_friend/",
     id,
     config
