@@ -20,11 +20,12 @@ export function Home() {
     setNewPost({ content: event.target.value });
   };
 
-  let addPost = async () => {
-    let response = await addNewPost(newPost);
-    // setPosts({...posts, newPost});
-    console.log(response.data);
-  };
+let addPost = async () => {
+  let response = await addNewPost(newPost);
+  setPosts([...posts, response.data]);
+  setNewPost({ content: "" }); 
+};
+
 
   let fetchAllPosts = async () => {
     let response = await fetchPosts();
@@ -80,22 +81,23 @@ export function Home() {
         >
           {/* Middle column */}
           {/* Add content for the middle column */}
-          {/* ////// start create Post ////// */}
-          {userInfo.user_type === "doctor" ? (
-            <div className="row mb-3 align-items-center justify-content-center p-4 mt-3 white-bg shadow-lg">
-              <div className="col-auto">
-                <img
-                  src={profileImage}
-                  alt="Profile"
-                  className="rounded-circle ellipse-3"
-                />
-              </div>
-              <div className="col text-start">
-                <input
-                  type="text"
-                  className="grey-input"
-                  placeholder="Write a post"
-                  onChange={operationHandler}
+            {/* ////// start create Post ////// */}
+            {userInfo.user_type === "doctor" ? (
+          <div className="row mb-3 align-items-center justify-content-center p-4 mt-3 white-bg shadow-lg">
+            <div className="col-auto">
+              <img
+                src={profileImage}
+                alt="Profile"
+                className="rounded-circle ellipse-3"
+              />
+            </div>
+            <div className="col text-start">
+              <input
+                type="text"
+                className="grey-input"
+                placeholder="Write a post"
+                value={newPost.content}
+                onChange={operationHandler}
                 />
               </div>
               <div className="col-lg-2">
