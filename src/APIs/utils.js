@@ -178,3 +178,19 @@ export const getUserById = async (userId) => {
   );
   return response;
 };
+
+export const getFriendList = async () => {
+  let authTokens = JSON.parse(localStorage.getItem("authTokens"));
+  let accessToken = authTokens? authTokens.access : null ;
+  console.log(accessToken);
+  let config = {
+    headers: {
+      Authorization: `Bearer ${accessToken}`,
+    },
+  };
+  let response = await axios.get(
+    "http://127.0.0.1:8000/connect/list_friends/",
+    config
+  );
+  return response;
+};
