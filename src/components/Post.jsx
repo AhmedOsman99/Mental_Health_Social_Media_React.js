@@ -34,25 +34,41 @@ export function Post(props) {
     }
   };
 
-  let [like, setLike] = useState(false);
-
   let [postData, setPostData] = useState({
     content: post.content,
-    like: post.like,
+    likes: post.likes,
+  });
+  
+  let [like, setLike] = useState(() => {
+    const index = postData.likes.indexOf(userInfo.user.id);
+    return index > -1;
   });
 
   const toggleLike = () => {
     const updatedPostData = { ...postData };
     if (!like) {
-      updatedPostData.like += 1;
+      updatedPostData.likes.push(userInfo.user.id);
     } else {
-      updatedPostData.like -= 1;
+      let index = updatedPostData.likes.indexOf(userInfo.user.id);
+      if (index > -1) {
+        updatedPostData.likes.splice(index, 1);
+      }
     }
+    ///////////////////////////////////
+
+    ///////////////////////////////////
     setPostData(updatedPostData);
     setLike(!like);
-
+    let authTokens = JSON.parse(localStorage.getItem("authTokens"));
+    let accessToken = authTokens.access;
+    console.log(accessToken);
+    let config = {
+      headers: {
+        Authorization: `Bearer ${accessToken}`,
+      },
+    };
     axios
-      .put(`http://localhost:8000/post/${post.id}`, updatedPostData)
+      .put(`http://localhost:8000/post/${post.id}`, updatedPostData, config)
       .then((response) => {
         console.log(response.data);
       })
@@ -98,13 +114,21 @@ export function Post(props) {
   };
 
   let deletePost = () => {
-    axios.delete(`http://localhost:8000/post/${post.id}`);
-    setPosts(posts.filter((post) => post.id !== post.id));
+    let authTokens = JSON.parse(localStorage.getItem("authTokens"));
+    let accessToken = authTokens.access;
+    console.log(accessToken);
+    let config = {
+      headers: {
+        Authorization: `Bearer ${accessToken}`,
+      },
+    };
+    axios.delete(`http://localhost:8000/post/${post.id}`, config);
+    setPosts(posts.filter((posts) => posts.id !== post.id));
   };
 
   useEffect(() => {
     setDate();
-  }, [period, like, postData]);
+  }, [posts]);
 
   return (
     <div>
@@ -186,7 +210,8 @@ export function Post(props) {
         <div className="row justify-content-between pb-0 pt-2">
           <div className="col-auto ">
             <i className="bi bi-hand-thumbs-up mdi-like px-2"></i>
-            <span>{postData.like}</span>
+            {/* <span>{postData.like}</span> */}
+            <span>{postData.likes.length}</span>
           </div>
           <div className="col-auto ">
             <i className="bi bi-chat px-2"></i>

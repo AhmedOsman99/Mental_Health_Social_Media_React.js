@@ -20,11 +20,12 @@ export function Home() {
     setNewPost({ content: event.target.value });
   };
 
-  let addPost = async () => {
-    let response = await addNewPost(newPost);
-    // setPosts({...posts, newPost});
-    console.log(response.data);
-  };
+let addPost = async () => {
+  let response = await addNewPost(newPost);
+  setPosts([...posts, response.data]);
+  setNewPost({ content: "" }); 
+};
+
 
   let fetchAllPosts = async () => {
     let response = await fetchPosts();
@@ -95,6 +96,7 @@ export function Home() {
                 type="text"
                 className="grey-input"
                 placeholder="Write a post"
+                value={newPost.content}
                 onChange={operationHandler}
                 />
             </div>
