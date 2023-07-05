@@ -80,45 +80,45 @@ export function Home() {
         >
           {/* Middle column */}
           {/* Add content for the middle column */}
-            {/* ////// start create Post ////// */}
-            {userInfo.user_type === "doctor" ? (
-          <div className="row mb-3 align-items-center justify-content-center p-4 mt-3 white-bg shadow-lg">
-            <div className="col-auto">
-              <img
-                src={profileImage}
-                alt="Profile"
-                className="rounded-circle ellipse-3"
-              />
-            </div>
-            <div className="col text-start">
-              <input
-                type="text"
-                className="grey-input"
-                placeholder="Write a post"
-                onChange={operationHandler}
+          {/* ////// start create Post ////// */}
+          {userInfo.user_type === "doctor" ? (
+            <div className="row mb-3 align-items-center justify-content-center p-4 mt-3 white-bg shadow-lg">
+              <div className="col-auto">
+                <img
+                  src={profileImage}
+                  alt="Profile"
+                  className="rounded-circle ellipse-3"
                 />
-            </div>
-            <div className="col-lg-2">
-              <button
-                type="button"
-                class="btn btn-outline"
-                style={{
-                  backgroundColor: "#83c5be",
-                  borderRadius: "20px",
-                  padding: "9px 15px 9px 15px",
-                }}
-                onClick={addPost}
-              >
-                Post
-              </button>
-            </div>
-            {/* <div className="row justify-content-center align-items-center mt-4">
+              </div>
+              <div className="col text-start">
+                <input
+                  type="text"
+                  className="grey-input"
+                  placeholder="Write a post"
+                  onChange={operationHandler}
+                />
+              </div>
+              <div className="col-lg-2">
+                <button
+                  type="button"
+                  class="btn btn-outline"
+                  style={{
+                    backgroundColor: "#83c5be",
+                    borderRadius: "20px",
+                    padding: "9px 15px 9px 15px",
+                  }}
+                  onClick={addPost}
+                >
+                  Post
+                </button>
+              </div>
+              {/* <div className="row justify-content-center align-items-center mt-4">
               <div className="col-lg-4 d-flex align-items-center px-5">
                 <i className="bi bi-images px-3 fs-5"></i>
                 Photo
               </div>
             </div> */}
-          </div>
+            </div>
           ) : null}
           {/* ////// end create Post ////// */}
           {posts.length > 0 ? (

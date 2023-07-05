@@ -1,8 +1,8 @@
 // ModalDialog.jsx
 import React from "react";
-import { Modal, Button, Form, Image } from "react-bootstrap";
+import { Modal, Button, Form, Image, Card } from "react-bootstrap";
 import { BsCheck, BsX } from "react-icons/bs";
-
+import "../CSS/style.css";
 {
   /* Modal for editing the About content */
 }
@@ -74,6 +74,9 @@ export function PhotosModal({ show, handleClose, photos }) {
     </Modal>
   );
 }
+{
+  /* Modal for friend requests */
+}
 
 export function FriendRequestModalDialog({
   showModal,
@@ -121,6 +124,59 @@ export function FriendRequestModalDialog({
           <p>No friend requests.</p>
         )}
       </Modal.Body>
+    </Modal>
+  );
+}
+
+{
+  /* Modal for comments list and add */
+}
+
+export function CommentModal({
+  show,
+  handleClose,
+  handleAddComment,
+  commentText,
+  handleCommentTextChange,
+  comments,
+}) {
+  const reversedComments = comments.slice().reverse(); // Create a copy of comments array and reverse the order
+
+  return (
+    <Modal show={show} onHide={handleClose} size="lg" centered>
+      <Modal.Header closeButton style={{ backgroundColor: "#83c5be" }}>
+        <Modal.Title>Comments</Modal.Title>
+      </Modal.Header>
+      <Modal.Body>
+        <textarea
+          className="form-control"
+          rows={2}
+          onChange={handleCommentTextChange}
+          value={commentText}
+        ></textarea>
+      </Modal.Body>
+      <Modal.Footer>
+        <Button variant="secondary" onClick={handleClose}>
+          Cancel
+        </Button>
+        <Button variant="primary" onClick={handleAddComment}>
+          Add
+        </Button>
+      </Modal.Footer>
+      <div>
+        {reversedComments.length > 0 ? (
+          reversedComments.map((comment) => (
+            <Card key={comment.id} className="m-2 shadow-sm">
+              <Card.Body>
+                <Card.Title>{comment.author}</Card.Title>
+                <Card.Text>{comment.content}</Card.Text>
+              </Card.Body>
+            </Card>
+          ))
+        ) : (
+          <div className="no-comments">No comments yet.</div>
+        )}
+      </div>
     </Modal>
   );
 }
