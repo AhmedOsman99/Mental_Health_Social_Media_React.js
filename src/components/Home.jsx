@@ -34,10 +34,10 @@ export function Home() {
   };
 
   let [showFriendsModal, setShowFriendsModal] = useState(false);
-  let [friends, setFriends] = useState("No friends to show");
-  let openFriendsModal = () => {
+  let [friends, setFriends] = useState([]);
+  let openFriendsModal = async () => {
     setShowFriendsModal(true);
-    let response = getFriendList();
+    let response = await getFriendList();
     setFriends(response.data);
   };
 
@@ -130,7 +130,7 @@ export function Home() {
                       type="file"
                       className="custom-file-input p-0"
                       onChange={fileHandler}
-                      style={{ width: "52%"}}
+                      style={{ width: "52%" }}
                     />
                   </Form.Group>
                 </div>
@@ -173,7 +173,27 @@ export function Home() {
         <Modal.Header closeButton>
           <Modal.Title>Friends</Modal.Title>
         </Modal.Header>
-        <Modal.Body></Modal.Body>
+        <Modal.Body>
+          {friends !== false ? (
+            friends.map((friend) => (
+              // <div>{friend.first_name} {friend.last_name}</div>
+              <div className="row px-4">
+                <div className="col-auto">
+                  <img
+                    // src={profileImage}
+                    alt="Profile"
+                    className="rounded-circle ellipse-2"
+                  />
+                </div>
+                <div className="col-auto fs-5 fw-semibold">
+                  {friend.first_name} {friend.last_name}
+                </div>
+              </div>
+            ))
+          ) : (
+            <div>No Friends To Show</div>
+          )}
+        </Modal.Body>
         <Modal.Footer></Modal.Footer>
       </Modal>
     </div>
