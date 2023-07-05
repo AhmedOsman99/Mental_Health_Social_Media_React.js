@@ -16,11 +16,13 @@ import { getFriendRequests } from "../APIs/utils";
 
 export function NavBar() {
   let { contextData } = useContext(AuthContext);
-  let { user, userInfo } = contextData;
+  let { userInfo , authTokens } = contextData;
   let { logOut } = contextData;
   const [showModal, setShowModal] = useState(false);
 
-  const friendRequests = getFriendRequests();
+  const friendRequests = () => {
+    getFriendRequests()
+  };
   // const friendRequests = [];
 
   const handlePersonPlusClick = () => {
@@ -39,7 +41,7 @@ export function NavBar() {
 
   return (
     <>
-     {authToken && <Navbar
+     {authTokens && <Navbar
         expand="lg"
         variant="light"
         style={{ backgroundColor: "#83c5be" }}
@@ -76,7 +78,7 @@ export function NavBar() {
               </div>
             </NavLink>
           </Nav>
-          <NavLink className="nav-link" to={`/profile/${userInfo.user.id}`}>
+          <NavLink className="nav-link" to={`/profile/${userInfo?userInfo.user.id : null}`}>
             <div className="circle-icon">
               <BsPersonCircle size={30} />
             </div>

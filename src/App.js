@@ -26,7 +26,7 @@ function App() {
             <Route path="profile/:id" element={<Profile />} />
             </Route>
           <Route path="login" element={<Login/>}/>
-        <Route path=""  element={<Doctor_form />} />
+        <Route path="/signup"  element={<Doctor_form />} />
         </Routes>
         </PostContextProvider>
       </AuthProvider>

@@ -101,7 +101,7 @@ export function Login() {
                
                   <button
                     className="link-btn"
-                    onClick={() => navigate("/home")}
+                    onClick={() => navigate("/signup")}
                   >
                     Do not have Account? Sign UP
                   </button>

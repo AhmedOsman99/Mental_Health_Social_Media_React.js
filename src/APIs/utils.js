@@ -118,7 +118,7 @@ export const fetchProfilePosts = async (userId) => {
 
 export const getFriendRequests = async () => {
   let authTokens = JSON.parse(localStorage.getItem("authTokens"));
-  let accessToken = authTokens.access;
+  let accessToken = authTokens? authTokens.access : null ;
   console.log(accessToken);
   let config = {
     headers: {
