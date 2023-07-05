@@ -1,5 +1,5 @@
 import React, { useContext, useState } from "react";
-
+import logo from '../images/logo.jpg'
 import {
   BsHouse,
   BsPersonPlus,
@@ -60,8 +60,8 @@ export function NavBar() {
         variant="light"
         style={{ backgroundColor: "#83c5be" }}
       >
-        <Navbar.Brand href="#" className="logo mx-4 mb-2">
-          <img src="../assets/logo.png" alt="Logo" className="logo" />
+        <Navbar.Brand href="/home" className="logo mx-4 mb-2">
+          <img src={logo} alt="Logo" className="circle-icon" />
         </Navbar.Brand>
         <Navbar.Toggle aria-controls="navbarSupportedContent" />
 
@@ -85,18 +85,22 @@ export function NavBar() {
                 <BsChatDots size={20} />
               </div>
             </NavLink>
-
-            <NavLink className="nav-link" onClick={logOut}>
-              <div className="circle-icon">
-                <BsBoxArrowRight size={20} />
-              </div>
-            </NavLink>
-          </Nav>
-          <NavLink className="nav-link" to={`/profile/${userInfo?userInfo.user.id : null}`}>
+            
+            <NavLink className="nav-link" to={`/profile/${userInfo?userInfo.user.id : null}`}>
             <div className="circle-icon">
               <BsPersonCircle size={30} />
             </div>
           </NavLink>
+        
+          </Nav>
+       
+
+          <NavLink className="nav-link" onClick={logOut}>
+              <div className="circle-icon">
+                <BsBoxArrowRight size={20} />
+              </div>
+            </NavLink>
+
         </Navbar.Collapse>
       </Navbar> }
 
