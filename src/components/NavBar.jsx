@@ -1,5 +1,5 @@
 import React, { useContext, useState } from "react";
-
+import logo from '../images/logo.jpg'
 import {
   BsHouse,
   BsPersonPlus,
@@ -9,35 +9,49 @@ import {
 } from "react-icons/bs";
 import { Navbar, Nav } from "react-bootstrap";
 import "../CSS/style.css";
-import { NavLink } from "react-router-dom";
+import { NavLink, useNavigate } from "react-router-dom";
 import { FriendRequestModalDialog } from "./ModalDialog";
 import AuthContext from "../context/AuthContext";
-import { getFriendRequests } from "../APIs/utils";
+import { getFriendRequests, respondToFriendRequest } from "../APIs/utils";
+
 
 export function NavBar() {
   let { contextData } = useContext(AuthContext);
   let { userInfo , authTokens } = contextData;
   let { logOut } = contextData;
+  let [friendRequests , setfriendRequests] = useState('');
   const [showModal, setShowModal] = useState(false);
+  let navigate = useNavigate();
 
-  const friendRequests = () => {
-    getFriendRequests()
+  const fetchFriendRequests = async () => {
+   let response = await getFriendRequests() 
+   console.log(response.data);
+   setfriendRequests(response.data);
+   return response.data
   };
-  // const friendRequests = [];
 
   const handlePersonPlusClick = () => {
+    fetchFriendRequests();
+
     setShowModal(true);
   };
 
-  const handleAcceptRequest = (requestId) => {
-    // Handle accepting friend request
-    console.log("Accepted friend request with ID:", requestId);
+  const handleAcceptRequest = async (requestId) => {
+        let response = await respondToFriendRequest(requestId , "accept");
+        setfriendRequests(friendRequests.filter(friend => friend.id !== requestId));
+        console.log("Accepted friend request with ID:", requestId);
   };
 
-  const handleRejectRequest = (requestId) => {
-    // Handle rejecting friend request
+  const handleRejectRequest = async (requestId) => {
+    let response = await respondToFriendRequest(requestId , "decline");
+    setfriendRequests(friendRequests.filter(friend => friend.id !== requestId));
+
     console.log("Rejected friend request with ID:", requestId);
   };
+
+  const goToChats = () => {
+    navigate('/chats/')
+  }
 
   return (
     <>
@@ -46,8 +60,8 @@ export function NavBar() {
         variant="light"
         style={{ backgroundColor: "#83c5be" }}
       >
-        <Navbar.Brand href="#" className="logo mx-4 mb-2">
-          <img src="../assets/logo.png" alt="Logo" className="logo" />
+        <Navbar.Brand href="/home" className="logo mx-4 mb-2">
+          <img src={logo} alt="Logo" className="circle-icon" />
         </Navbar.Brand>
         <Navbar.Toggle aria-controls="navbarSupportedContent" />
 
@@ -66,23 +80,27 @@ export function NavBar() {
                 <BsPersonPlus size={20} />
               </div>
             </NavLink>
-            <NavLink className="nav-link" href="#">
+            <NavLink className="nav-link" to="/chats">
               <div className="circle-icon">
                 <BsChatDots size={20} />
               </div>
             </NavLink>
-
-            <NavLink className="nav-link" onClick={logOut}>
-              <div className="circle-icon">
-                <BsBoxArrowRight size={20} />
-              </div>
-            </NavLink>
-          </Nav>
-          <NavLink className="nav-link" to={`/profile/${userInfo?userInfo.user.id : null}`}>
+            
+            <NavLink className="nav-link" to={`/profile/${userInfo?userInfo.user.id : null}`}>
             <div className="circle-icon">
               <BsPersonCircle size={30} />
             </div>
           </NavLink>
+        
+          </Nav>
+       
+
+          <NavLink className="nav-link" onClick={logOut}>
+              <div className="circle-icon">
+                <BsBoxArrowRight size={20} />
+              </div>
+            </NavLink>
+
         </Navbar.Collapse>
       </Navbar> }
 

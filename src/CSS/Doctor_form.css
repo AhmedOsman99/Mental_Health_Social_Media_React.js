@@ -21,9 +21,9 @@
 }
 
 .sign-up .overlap {
-  height: 1000px !important;
+  height: 100% !important;
   position: relative;
-  overflow: hidden;
+  overflow: hidden !important;
 }
 
 .sign-up .login {
