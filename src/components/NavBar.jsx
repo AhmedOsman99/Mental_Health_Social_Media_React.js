@@ -13,10 +13,10 @@ import { NavLink } from "react-router-dom";
 import { FriendRequestModalDialog } from "./ModalDialog";
 import AuthContext from "../context/AuthContext";
 import { getFriendRequests } from "../APIs/utils";
-import AuthContext from "../context/AuthContext";
 
 export function NavBar() {
   let { contextData } = useContext(AuthContext);
+  let { user, userInfo } = contextData;
   let { logOut } = contextData;
   const [showModal, setShowModal] = useState(false);
 
@@ -67,11 +67,6 @@ export function NavBar() {
             <NavLink className="nav-link" href="#">
               <div className="circle-icon">
                 <BsChatDots size={20} />
-              </div>
-            </NavLink>
-            <NavLink className="nav-link" to="/profile">
-              <div className="circle-icon">
-                <BsPersonCircle size={30} />
               </div>
             </NavLink>
 
