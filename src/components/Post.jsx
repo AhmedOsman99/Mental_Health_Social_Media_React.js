@@ -289,6 +289,28 @@ export function Post(props) {
         handleCommentTextChange={handleCommentTextChange}
         comments={comments}
       />
+      <Modal show={showEditModal} onHide={closeEditModal} size="lg" centered>
+        <Modal.Header closeButton>
+          <Modal.Title>Edit Post</Modal.Title>
+        </Modal.Header>
+        <Modal.Body>
+          <textarea
+            className="form-control"
+            rows={4}
+            value={editedContent}
+            onChange={(e) => setEditedContent(e.target.value)}
+          ></textarea>
+        </Modal.Body>
+        <Modal.Footer>
+          <Button variant="secondary" onClick={closeEditModal}>
+            Cancel
+          </Button>
+          <Button variant="primary" onClick={saveEditedContent}>
+            Save
+          </Button>
+        </Modal.Footer>
+      </Modal>
+
     </div>
   );
 }

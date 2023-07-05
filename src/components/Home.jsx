@@ -100,14 +100,6 @@ let addPost = async () => {
                 onChange={operationHandler}
                 />
               </div>
-              <div className="col text-start">
-                <input
-                  type="text"
-                  className="grey-input"
-                  placeholder="Write a post"
-                  onChange={operationHandler}
-                />
-              </div>
               <div className="col-lg-2">
                 <button
                   type="button"
