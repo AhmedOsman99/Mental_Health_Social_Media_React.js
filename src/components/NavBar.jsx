@@ -9,35 +9,49 @@ import {
 } from "react-icons/bs";
 import { Navbar, Nav } from "react-bootstrap";
 import "../CSS/style.css";
-import { NavLink } from "react-router-dom";
+import { NavLink, useNavigate } from "react-router-dom";
 import { FriendRequestModalDialog } from "./ModalDialog";
 import AuthContext from "../context/AuthContext";
-import { getFriendRequests } from "../APIs/utils";
+import { getFriendRequests, respondToFriendRequest } from "../APIs/utils";
+
 
 export function NavBar() {
   let { contextData } = useContext(AuthContext);
   let { userInfo , authTokens } = contextData;
   let { logOut } = contextData;
+  let [friendRequests , setfriendRequests] = useState('');
   const [showModal, setShowModal] = useState(false);
+  let navigate = useNavigate();
 
-  const friendRequests = () => {
-    getFriendRequests()
+  const fetchFriendRequests = async () => {
+   let response = await getFriendRequests() 
+   console.log(response.data);
+   setfriendRequests(response.data);
+   return response.data
   };
-  // const friendRequests = [];
 
   const handlePersonPlusClick = () => {
+    fetchFriendRequests();
+
     setShowModal(true);
   };
 
-  const handleAcceptRequest = (requestId) => {
-    // Handle accepting friend request
-    console.log("Accepted friend request with ID:", requestId);
+  const handleAcceptRequest = async (requestId) => {
+        let response = await respondToFriendRequest(requestId , "accept");
+        setfriendRequests(friendRequests.filter(friend => friend.id !== requestId));
+        console.log("Accepted friend request with ID:", requestId);
   };
 
-  const handleRejectRequest = (requestId) => {
-    // Handle rejecting friend request
+  const handleRejectRequest = async (requestId) => {
+    let response = await respondToFriendRequest(requestId , "decline");
+    setfriendRequests(friendRequests.filter(friend => friend.id !== requestId));
+
     console.log("Rejected friend request with ID:", requestId);
   };
+
+  const goToChats = () => {
+    navigate('/chats/')
+  }
 
   return (
     <>
@@ -66,7 +80,7 @@ export function NavBar() {
                 <BsPersonPlus size={20} />
               </div>
             </NavLink>
-            <NavLink className="nav-link" href="#">
+            <NavLink className="nav-link" to="/chats">
               <div className="circle-icon">
                 <BsChatDots size={20} />
               </div>

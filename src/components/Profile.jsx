@@ -14,7 +14,7 @@ import { EditModal, PhotosModal } from "./ModalDialog";
 import { Post } from "./Post";
 import { postContext } from "./contexts/PostContext";
 import AuthContext from "../context/AuthContext";
-import { addNewPost, fetchProfilePosts, getUserById } from "../APIs/utils";
+import { addNewPost, fetchProfilePosts, getUserById, sendRequest } from "../APIs/utils";
 import { useParams } from "react-router";
 export function Profile() {
   const [showEditModal, setShowEditModal] = useState(false);
@@ -76,6 +76,12 @@ export function Profile() {
   const handleViewPhotos = () => {
     setShowPhotosModal(true);
   };
+
+
+  const sendConnectRequest = async () => {
+      let response = await sendRequest(id);
+      console.log(response.data);
+  };
   return (
     <div className="app-container">
       <Container>
@@ -110,6 +116,7 @@ export function Profile() {
                 </div>
                 <div className="buttons-wrapper">
                   <Button
+                    onClick={sendConnectRequest}
                     className="custom-button frame-3 me-3 connect-button"
                     variant="light"
                     style={{
@@ -136,14 +143,14 @@ export function Profile() {
                     variant="#83c5be"
                     style={{ borderRadius: "20px", minWidth: "120px" }}
                   >
-                    <span>Message</span>
+                    {/* <span>Message</span> */}
                   </Button>
                   <Button
                     className="div-wrapper btn-outline-secondary"
                     variant="#83c5be"
                     style={{ borderRadius: "20px", minWidth: "120px" }}
                   >
-                    <span>More</span>
+                    {/* <span>More</span> */}
                   </Button>
                 </div>
               </Col>
