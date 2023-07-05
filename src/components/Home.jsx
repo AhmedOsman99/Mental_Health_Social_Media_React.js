@@ -99,28 +99,36 @@ let addPost = async () => {
                 value={newPost.content}
                 onChange={operationHandler}
                 />
-            </div>
-            <div className="col-lg-2">
-              <button
-                type="button"
-                class="btn btn-outline"
-                style={{
-                  backgroundColor: "#83c5be",
-                  borderRadius: "20px",
-                  padding: "9px 15px 9px 15px",
-                }}
-                onClick={addPost}
-              >
-                Post
-              </button>
-            </div>
-            {/* <div className="row justify-content-center align-items-center mt-4">
+              </div>
+              <div className="col text-start">
+                <input
+                  type="text"
+                  className="grey-input"
+                  placeholder="Write a post"
+                  onChange={operationHandler}
+                />
+              </div>
+              <div className="col-lg-2">
+                <button
+                  type="button"
+                  class="btn btn-outline"
+                  style={{
+                    backgroundColor: "#83c5be",
+                    borderRadius: "20px",
+                    padding: "9px 15px 9px 15px",
+                  }}
+                  onClick={addPost}
+                >
+                  Post
+                </button>
+              </div>
+              {/* <div className="row justify-content-center align-items-center mt-4">
               <div className="col-lg-4 d-flex align-items-center px-5">
                 <i className="bi bi-images px-3 fs-5"></i>
                 Photo
               </div>
             </div> */}
-          </div>
+            </div>
           ) : null}
           {/* ////// end create Post ////// */}
           {posts.length > 0 ? (
