@@ -16,10 +16,10 @@ export const getChats = async () => {
 export const addNewPost = async (newPost) => {
   let authTokens = JSON.parse(localStorage.getItem("authTokens"));
   let accessToken = authTokens.access;
-  console.log(accessToken);
   let config = {
     headers: {
       Authorization: `Bearer ${accessToken}`,
+      "Content-Type": "multipart/form-data", // Set the content type to multipart/form-data
     },
   };
   let response = await axios.post(
