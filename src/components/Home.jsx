@@ -5,6 +5,7 @@ import { postContext } from "./contexts/PostContext";
 import AuthContext from "../context/AuthContext";
 import { addNewPost, fetchPosts, getFriendList } from "../APIs/utils";
 import { Form, Modal } from "react-bootstrap";
+import { NavLink } from "react-router-dom";
 
 export function Home() {
   let { contextData } = useContext(AuthContext);
@@ -147,21 +148,23 @@ export function Home() {
         <div className="col-md-3 col-lg-3 grey-bg ">
           {/* Right column */}
           {/* Add content for the right column */}
-          <div className="fs-5 fw-semibold  pb-4">Contacts</div>
+
+          {/* <div className="fs-5 fw-semibold  pb-4">Contacts</div> */}
           {/* {
                 contacts mapping to show in HomePage 
             } */}
-          <div className="row px-4 pb-3 d-flex justify-content-center">
-            <div className="col-auto">
-              <img
-                // src={profileImage}
-                alt="Profile"
-                className="rounded-circle ellipse-2"
-              />{" "}
-              {/* user_profile_image */}
-            </div>
-            <div className="col-auto fw-semibold"></div> {/* chat part  */}
-          </div>
+          {/* <div className="row px-4 pb-3 d-flex justify-content-center"> */}
+          {/* <div className="col-auto"> */}
+          {/* <img */}
+          {/* // src={profileImage} */}
+          {/* alt="Profile" */}
+          {/* className="rounded-circle ellipse-2" */}
+          {/* /> */}
+          {/* {" "} */}
+          {/* user_profile_image */}
+          {/* </div> */}
+          {/* <div className="col-auto fw-semibold"></div>  */}
+          {/* </div> */}
         </div>
       </div>
       <Modal
@@ -176,17 +179,15 @@ export function Home() {
         <Modal.Body>
           {friends !== false ? (
             friends.map((friend) => (
-              // <div>{friend.first_name} {friend.last_name}</div>
               <div className="row px-4">
-                <div className="col-auto">
-                  <img
-                    // src={profileImage}
-                    alt="Profile"
-                    className="rounded-circle ellipse-2"
-                  />
-                </div>
+                <div className="col-auto"></div>
                 <div className="col-auto fs-5 fw-semibold">
-                  {friend.first_name} {friend.last_name}
+                  <NavLink
+                    to={`/profile/${friend.id}`}
+                    className="fs-5 fw-semibold nav-link"
+                  >
+                    {friend.first_name} {friend.last_name}
+                  </NavLink>{" "}
                 </div>
               </div>
             ))
