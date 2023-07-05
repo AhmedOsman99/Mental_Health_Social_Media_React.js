@@ -48,20 +48,22 @@ export function Profile() {
     first_name: "",
     last_name: "",
   });
-  // console.log(userById.id);
-
+  let [userType, setuserType] = useState({});
+  const { id } = useParams();
+  console.log(userById.id);
+  console.log(userType);
   let getUser = async () => {
     let userdata = await getUserById(id);
-    console.log(userdata.data.user.id);
+    // console.log(userdata.data.user_type);
     setuserById(userdata.data.user);
+    setuserType(userdata.data.user_type);
     return userdata;
   };
   // console.log(getUser);
-  const { id } = useParams();
   useEffect(() => {
     fetchAllPosts();
     getUser();
-  }, []);
+  }, [id]);
 
   const handleEditAbout = () => {
     setShowEditModal(true);
@@ -80,7 +82,7 @@ export function Profile() {
     <div className="app-container">
       <Container>
         <Row
-          className="group1 justify-content-center pt-2 mt-3"
+          className="group1 justify-content-center pt-4 mt-3"
           style={{
             background:
               "linear-gradient(180deg, rgb(201, 214, 255) 0%, rgb(226, 226, 226) 100%)",
@@ -106,46 +108,75 @@ export function Profile() {
                 className="text-md-start mt-4 mt-md-0 d-flex flex-column align-items-md-start"
               >
                 <div className="d-flex align-items-center">
-                  <h1 className="mb-4">Dr. {userById.first_name}</h1>
+                  <h1 className="mb-4">
+                    {userType === "doctor" && (
+                      <h1 className="mb-4">
+                        Dr. {userById.first_name + " " + userById.last_name}
+                      </h1>
+                    )}
+                    {userType === "person" && (
+                      <h1 className="mb-4">
+                        {userById.first_name + " " + userById.last_name}
+                      </h1>
+                    )}
+                  </h1>
                 </div>
-                <div className="buttons-wrapper">
-                  <Button
-                    className="custom-button frame-3 me-3 connect-button"
-                    variant="light"
-                    style={{
-                      backgroundColor: "#83c5be",
-                      borderRadius: "20px",
-                      minWidth: "120px",
-                    }}
-                  >
-                    <span>Connect</span>
-                  </Button>
-                  <Button
-                    className="custom-button frame-3 me-3 reservation-button"
-                    variant="light"
-                    style={{
-                      backgroundColor: "#83c5be",
-                      borderRadius: "20px",
-                      minWidth: "120px",
-                    }}
-                  >
-                    <span>Reservation</span>
-                  </Button>
-                  <Button
-                    className="frame-4 me-3 btn-outline-secondary"
-                    variant="#83c5be"
-                    style={{ borderRadius: "20px", minWidth: "120px" }}
-                  >
-                    <span>Message</span>
-                  </Button>
-                  <Button
-                    className="div-wrapper btn-outline-secondary"
-                    variant="#83c5be"
-                    style={{ borderRadius: "20px", minWidth: "120px" }}
-                  >
-                    <span>More</span>
-                  </Button>
-                </div>
+
+                {userType === "doctor" && userInfo.user.id === id && (
+                  <div className="buttons-wrapper">
+                    <Button
+                      className="custom-button frame-3 me-3 connect-button"
+                      variant="light"
+                      style={{
+                        backgroundColor: "#83c5be",
+                        borderRadius: "20px",
+                        minWidth: "120px",
+                      }}
+                    >
+                      <span>Connect</span>
+                    </Button>
+                    <Button
+                      className="custom-button frame-3 me-3 reservation-button"
+                      variant="light"
+                      style={{
+                        backgroundColor: "#83c5be",
+                        borderRadius: "20px",
+                        minWidth: "120px",
+                      }}
+                    >
+                      <span>Reservation</span>
+                    </Button>
+                    <Button
+                      className="frame-4 me-3 btn-outline-secondary"
+                      variant="#83c5be"
+                      style={{ borderRadius: "20px", minWidth: "120px" }}
+                    >
+                      <span>Message</span>
+                    </Button>
+                    <Button
+                      className="div-wrapper btn-outline-secondary"
+                      variant="#83c5be"
+                      style={{ borderRadius: "20px", minWidth: "120px" }}
+                    >
+                      <span>More</span>
+                    </Button>
+                  </div>
+                )}
+                {userType === "person" && (
+                  <div className="buttons-wrapper">
+                    <Button
+                      className="custom-button frame-3 me-3 connect-button"
+                      variant="light"
+                      style={{
+                        backgroundColor: "#83c5be",
+                        borderRadius: "20px",
+                        minWidth: "120px",
+                      }}
+                    >
+                      <span>Connect</span>
+                    </Button>
+                  </div>
+                )}
               </Col>
             </Row>
           </Col>
@@ -153,60 +184,85 @@ export function Profile() {
         <Row className="mt-4">
           <Col md={6} lg={4} className="leftcol mx-0 mx-md-4">
             <Row>
-              <Col
-                className="mt-4 col-12 bg-white shadow-lg"
-                style={{ borderRadius: "20px" }}
-              >
-                <div className="d-flex justify-content-between align-items-center">
-                  <h2>About</h2>
-                  <span
-                    className="bi bi-pencil"
-                    onClick={handleEditAbout}
-                  ></span>
-                </div>
-                <p>{aboutContent}</p>
-              </Col>
+              {userType === "doctor" && (
+                <Col
+                  className="mt-4 col-12 bg-white shadow-lg"
+                  style={{ borderRadius: "20px" }}
+                >
+                  <div className="d-flex justify-content-between align-items-center">
+                    <h2>About</h2>
+                    <span
+                      className="bi bi-pencil"
+                      onClick={handleEditAbout}
+                    ></span>
+                  </div>
+
+                  <p>{aboutContent}</p>
+                </Col>
+              )}
+              {userType === "person" && (
+                <Row>
+                  <Col
+                    className="mt-4  bg-white shadow-lg"
+                    style={{ borderRadius: "20px" }}
+                  >
+                    <div className="d-flex justify-content-between align-items-center">
+                      <h2>About</h2>
+                      <span
+                        className="bi bi-pencil"
+                        onClick={handleEditAbout}
+                      ></span>
+                    </div>
+
+                    <p>{aboutContent}</p>
+                  </Col>
+                </Row>
+              )}
             </Row>
             <Row>
-              <Col
-                className="mt-4 col-12 bg-white shadow-lg"
-                style={{ borderRadius: "20px" }}
-              >
-                <div className="d-flex justify-content-between align-items-center">
-                  <h2>Photos</h2>
-                  <Button
-                    variant="link"
-                    style={{
-                      border: "none",
-                      boxShadow: "none",
-                      textDecoration: "none",
-                      color: "#83c5be",
-                    }}
-                    onClick={handleViewPhotos}
-                  >
-                    <span>See All</span>
-                  </Button>
-                </div>
-              </Col>
+              {userType === "doctor" && (
+                <Col
+                  className="mt-4 col-12 bg-white shadow-lg"
+                  style={{ borderRadius: "20px" }}
+                >
+                  <div className="d-flex justify-content-between align-items-center">
+                    <h2>Photos</h2>
+                    <Button
+                      variant="link"
+                      style={{
+                        border: "none",
+                        boxShadow: "none",
+                        textDecoration: "none",
+                        color: "#83c5be",
+                      }}
+                      onClick={handleViewPhotos}
+                    >
+                      <span>See All</span>
+                    </Button>
+                  </div>
+                </Col>
+              )}
             </Row>
           </Col>
           <Col md={6} lg={7} className="rightcol">
             <Row>
-              <Col className="mt-2 col-12 " style={{ borderRadius: "20px" }}>
-                <Row
-                  className="mt-3 py-1 bg-white shadow-lg"
-                  style={{ borderRadius: "20px" }}
-                >
-                  <h2>Posts</h2>
-                </Row>
-                <Row>
-                  {posts.length > 0 ? (
-                    posts.map((post) => <Post post={post} />)
-                  ) : (
-                    <p>No posts to show.</p>
-                  )}
-                </Row>
-              </Col>
+              {userType === "doctor" && (
+                <Col className="mt-2 col-12 " style={{ borderRadius: "20px" }}>
+                  <Row
+                    className="mt-3 py-1 bg-white shadow-lg"
+                    style={{ borderRadius: "20px" }}
+                  >
+                    <h2>Posts</h2>
+                  </Row>
+                  <Row>
+                    {posts.length > 0 ? (
+                      posts.map((post) => <Post post={post} />)
+                    ) : (
+                      <p>No posts to show.</p>
+                    )}
+                  </Row>
+                </Col>
+              )}
             </Row>
           </Col>
         </Row>

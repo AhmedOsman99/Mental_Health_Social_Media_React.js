@@ -11,7 +11,7 @@ export function Login() {
   const [errorMessage, setErrorMessage] = useState("");
   const navigate = useNavigate();
   let { contextData } = useContext(AuthContext);
-  let { login } = contextData;  
+  let { login } = contextData;
 
   const handleUsernameChange = (event) => {
     setUsername(event.target.value);
@@ -28,7 +28,7 @@ export function Login() {
   const handleSubmit = async (event) => {
     event.preventDefault();
     const response = await login(username, password);
-    if (response.status === 401){
+    if (response.status === 401) {
       setErrorMessage("Wrong username or password");
     } else {
       setErrorMessage("");
@@ -91,14 +91,10 @@ export function Login() {
                       <div className="text-wrapper-4">Keep me logged in</div>
                     </label>
                   </div>
-
                 </div>
                 <p>asdasda</p>
-                {errorMessage && (
-                  <p style={{ color: "red" }}>{errorMessage}</p>
-                )}
+                {errorMessage && <p style={{ color: "red" }}>{errorMessage}</p>}
                 <div className="group-3">
-               
                   <button
                     className="link-btn"
                     onClick={() => navigate("/signup")}

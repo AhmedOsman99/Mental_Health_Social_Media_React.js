@@ -4,7 +4,12 @@ import axios from "axios";
 import { Modal, Button } from "react-bootstrap";
 import { postContext } from "./contexts/PostContext";
 import { NavLink } from "react-router-dom";
-import { fetchComments, addNewComment } from "../APIs/utils";
+import {
+  fetchComments,
+  addNewComment,
+  deleteComment,
+  editComment,
+} from "../APIs/utils";
 import { CommentModal } from "./ModalDialog";
 import AuthContext from "../context/AuthContext";
 
@@ -40,7 +45,7 @@ export function Post(props) {
     content: post.content,
     likes: post.likes,
   });
-  
+
   let [like, setLike] = useState(() => {
     const index = postData.likes.indexOf(userInfo.user.id);
     return index > -1;
@@ -133,7 +138,7 @@ export function Post(props) {
   //////////////////////////////////////////////
 
   const [showCommentModal, setShowCommentModal] = useState(false);
-  const [newComment, setNewComment] = useState({});
+  const [newComment, setNewComment] = useState();
   const [comments, setComments] = useState([]);
 
   const openCommentModal = () => {
@@ -146,25 +151,47 @@ export function Post(props) {
   const closeCommentModal = () => {
     setShowCommentModal(false);
   };
-
+  // console.log(post.comment[1].id);
   const handleAddComment = async () => {
     try {
       const response = await addNewComment(post.id, newComment);
-      console.log(response.data); // Optionally, you can handle the response data
-      const addedComment = response.data; // Get the added comment from the response
-      setComments((prevComments) => [...prevComments, addedComment]); // Update the comments array with the added comment
-      setNewComment(""); // Clear the new comment text input
+      fetchComments(post.id).then((response) => {
+        setComments(response.data);
+      });
+      setNewComment("");
     } catch (error) {
-      console.log(error); // Handle any errors that occur during the request
+      console.log(error);
+    }
+  };
+  /////////////////////////////////////
+  const handleEditComment = (commentId, postId, updatedcontent) => {
+    try {
+      editComment(commentId, postId, updatedcontent);
+      fetchComments(post.id).then((response) => {
+        setComments(response.data);
+      });
+    } catch (error) {
+      console.log(error);
+    }
+  };
+  ////////////////////////////////////
+  const handleDeleteComment = async (commentId) => {
+    try {
+      deleteComment(commentId);
+      setComments((prevComments) =>
+        prevComments.filter((comment) => comment.id !== commentId)
+      );
+    } catch (error) {
+      console.log(error);
     }
   };
   const handleCommentTextChange = (event) => {
     setNewComment(event.target.value);
   };
 
-  useEffect(() => {
-    handleAddComment();
-  }, []);
+  // useEffect(() => {
+  //   handleAddComment();
+  // }, []);
 
   return (
     <div>
@@ -252,7 +279,7 @@ export function Post(props) {
           </div>
           <div className="col-auto ">
             <i className="bi bi-chat px-2"></i>
-            <span>{post.comment.length}</span>
+            <span>{comments.length} </span>
           </div>
         </div>
         <div className="row justify-content-center pb-0">
@@ -285,6 +312,8 @@ export function Post(props) {
         show={showCommentModal}
         handleClose={closeCommentModal}
         handleAddComment={handleAddComment}
+        handleEditComment={handleEditComment}
+        handleDeleteComment={handleDeleteComment}
         commentText={newComment}
         handleCommentTextChange={handleCommentTextChange}
         comments={comments}
@@ -310,7 +339,6 @@ export function Post(props) {
           </Button>
         </Modal.Footer>
       </Modal>
-
     </div>
   );
 }

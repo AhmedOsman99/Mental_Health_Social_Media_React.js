@@ -74,6 +74,7 @@ export const fetchComments = async (post_id) => {
   };
   let response = await axios.get(
     `http://localhost:8000/post/${post_id}/comments`,
+
     config
   );
   return response;
@@ -97,6 +98,40 @@ export const addNewComment = async (post_id, newComment) => {
   return response;
 };
 
+export const deleteComment = async (comment_id) => {
+  let authTokens = JSON.parse(localStorage.getItem("authTokens"));
+  let accessToken = authTokens.access;
+  console.log(accessToken);
+  let config = {
+    headers: {
+      Authorization: `Bearer ${accessToken}`,
+    },
+  };
+  let response = await axios.delete(
+    `http://localhost:8000/post/comments/${comment_id}`,
+    config
+  );
+  return response;
+};
+
+export const editComment = async (comment_id, post_id, updatedcontent) => {
+  let authTokens = JSON.parse(localStorage.getItem("authTokens"));
+  let accessToken = authTokens.access;
+  console.log(accessToken);
+  let config = {
+    headers: {
+      Authorization: `Bearer ${accessToken}`,
+    },
+  };
+  let comment = { content: updatedcontent, post: post_id };
+
+  let response = await axios.put(
+    `http://localhost:8000/post/comments/${comment_id}/`,
+    comment,
+    config
+  );
+  return response;
+};
 export const fetchProfilePosts = async (userId) => {
   let authTokens = JSON.parse(localStorage.getItem("authTokens"));
   let authuser = JSON.parse(localStorage.getItem("userInfo"));
@@ -118,7 +153,7 @@ export const fetchProfilePosts = async (userId) => {
 
 export const getFriendRequests = async () => {
   let authTokens = JSON.parse(localStorage.getItem("authTokens"));
-  let accessToken = authTokens? authTokens.access : null ;
+  let accessToken = authTokens ? authTokens.access : null;
   console.log(accessToken);
   let config = {
     headers: {
@@ -181,7 +216,7 @@ export const getUserById = async (userId) => {
 
 export const getFriendList = async () => {
   let authTokens = JSON.parse(localStorage.getItem("authTokens"));
-  let accessToken = authTokens? authTokens.access : null ;
+  let accessToken = authTokens ? authTokens.access : null;
   console.log(accessToken);
   let config = {
     headers: {

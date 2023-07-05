@@ -1,8 +1,11 @@
 // ModalDialog.jsx
-import React from "react";
+import React, { useEffect, useState, useContext } from "react";
 import { Modal, Button, Form, Image, Card } from "react-bootstrap";
-import { BsCheck, BsX } from "react-icons/bs";
+import { BsCheck, BsX, BsPencilSquare, BsTrash } from "react-icons/bs";
+import AuthContext from "../context/AuthContext";
+
 import "../CSS/style.css";
+import { NavLink } from "react-router-dom";
 {
   /* Modal for editing the About content */
 }
@@ -136,11 +139,35 @@ export function CommentModal({
   show,
   handleClose,
   handleAddComment,
+  handleEditComment,
+  handleDeleteComment,
   commentText,
   handleCommentTextChange,
   comments,
 }) {
-  const reversedComments = comments.slice().reverse(); // Create a copy of comments array and reverse the order
+  let { contextData } = useContext(AuthContext);
+  let { user, userInfo } = contextData;
+  const reversedComments = comments.slice().reverse();
+  const [editingCommentId, setEditingCommentId] = useState(null);
+  const [editedComment, setEditedComment] = useState("");
+
+  const handleEditButtonClick = (commentId, content) => {
+    setEditingCommentId(commentId);
+    setEditedComment(content);
+  };
+
+  const handleSaveEditButtonClick = (postId) => {
+    if (editingCommentId && editedComment) {
+      handleEditComment(editingCommentId, postId, editedComment);
+      setEditingCommentId(null);
+      setEditedComment("");
+    }
+  };
+
+  const handleCancelEditButtonClick = () => {
+    setEditingCommentId(null);
+    setEditedComment("");
+  };
 
   return (
     <Modal show={show} onHide={handleClose} size="lg" centered>
@@ -153,6 +180,7 @@ export function CommentModal({
           rows={2}
           onChange={handleCommentTextChange}
           value={commentText}
+          placeholder="Enter comment text"
         ></textarea>
       </Modal.Body>
       <Modal.Footer>
@@ -168,8 +196,70 @@ export function CommentModal({
           reversedComments.map((comment) => (
             <Card key={comment.id} className="m-2 shadow-sm">
               <Card.Body>
-                <Card.Title>{comment.author}</Card.Title>
-                <Card.Text>{comment.content}</Card.Text>
+                <div className="d-flex justify-content-between align-items-center">
+                  <div>
+                    <NavLink
+                      to={`/profile/${comment.author_id}`}
+                      className="fs-5 fw-semibold nav-link"
+                    >
+                      <Card.Title>{comment.author}</Card.Title>
+                    </NavLink>
+                    {editingCommentId === comment.id ? (
+                      <Form.Control
+                        as="textarea"
+                        rows={2}
+                        value={editedComment}
+                        onChange={(e) => setEditedComment(e.target.value)}
+                      />
+                    ) : (
+                      <Card.Text>{comment.content}</Card.Text>
+                    )}
+                  </div>
+                  <div>
+                    {userInfo.user.id === comment.author_id && (
+                      // Show edit and trash buttons only if the user ID matches the comment's author ID
+                      <>
+                        {editingCommentId === comment.id ? (
+                          <>
+                            <button
+                              type="button"
+                              className="btn btn-link text-decoration-none"
+                              onClick={() =>
+                                handleSaveEditButtonClick(comment.post)
+                              }
+                            >
+                              <BsCheck />
+                            </button>
+                            <button
+                              type="button"
+                              className="btn btn-link text-decoration-none"
+                              onClick={handleCancelEditButtonClick}
+                            >
+                              <BsX />
+                            </button>
+                          </>
+                        ) : (
+                          <button
+                            type="button"
+                            className="btn btn-link text-decoration-none"
+                            onClick={() =>
+                              handleEditButtonClick(comment.id, comment.content)
+                            }
+                          >
+                            <BsPencilSquare />
+                          </button>
+                        )}
+                        <button
+                          type="button"
+                          className="btn btn-link text-decoration-none"
+                          onClick={() => handleDeleteComment(comment.id)}
+                        >
+                          <BsTrash />
+                        </button>
+                      </>
+                    )}
+                  </div>
+                </div>
               </Card.Body>
             </Card>
           ))
