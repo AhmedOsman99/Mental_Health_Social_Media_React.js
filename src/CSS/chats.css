@@ -1,8 +1,8 @@
 .chat-container {
     display: flex;
     height: 100%;
-    margin-top: 10%;
-    max-height: 400px; /* Set a fixed height for the container */
+    margin-top:10%;
+    max-height: 450px; /* Set a fixed height for the container */
     overflow-y: auto;
   }
   
@@ -28,6 +28,10 @@
     flex: 1;
     padding: 20px;
     overflow-y: scroll;
+    border : .2px solid lightseagreen;
+    background-color: white;
+    margin-right: 5%;
+    border-radius: 50px;
   }
   
   .chat-log {
@@ -97,9 +101,8 @@
     background-color: #83c5be;
     color: #fff;
     border-radius: 15px;
-    margin-left: 80%;    /* margin-bottom: 70px;
-    
-    margin-left: 0px; */
+    margin-left: 80%;    
+    margin-bottom: 5px;
     float: right;
   }
  
@@ -111,6 +114,11 @@
     color: #fff;
     border-radius: 15px;
     margin-bottom: 10px;
+    margin-bottom: 5px;
 
   }
 
+
+ .App{
+  background-color: #f2f2f2;
+ }

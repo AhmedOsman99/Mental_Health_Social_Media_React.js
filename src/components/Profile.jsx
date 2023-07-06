@@ -14,7 +14,13 @@ import { EditModal, PhotosModal } from "./ModalDialog";
 import { Post } from "./Post";
 import { postContext } from "./contexts/PostContext";
 import AuthContext from "../context/AuthContext";
-import { addNewPost, fetchProfilePosts, getUserById } from "../APIs/utils";
+import {
+  addNewPost,
+  fetchProfilePosts,
+  getUserById,
+  isFriend,
+  sendRequest,
+} from "../APIs/utils";
 import { useParams } from "react-router";
 export function Profile() {
   const [showEditModal, setShowEditModal] = useState(false);
@@ -78,6 +84,43 @@ export function Profile() {
   const handleViewPhotos = () => {
     setShowPhotosModal(true);
   };
+  const [connectButtonText, setConnectButtonText] = useState("Connect");
+  const [connectButtonVariant, setConnectButtonVariant] = useState("light");
+  const [connectButtonDisabled, setConnectButtonDisabled] = useState(false);
+
+  const sendConnectRequest = async () => {
+    let response = await sendRequest(id);
+    console.log(response);
+    window.location.reload();
+  };
+
+  useEffect(() => {
+    const fetchData = async () => {
+      const response = await isFriend(id);
+      console.log(response);
+      const friendStatus = response.data[0].status;
+
+      if (friendStatus === "pending") {
+        // if friend request is pending, update button to show "Pending"
+        setConnectButtonText("Pending");
+        setConnectButtonVariant("secondary");
+        setConnectButtonDisabled(true);
+      } else if (friendStatus === "accepted") {
+        // if friend request is accepted, update button to show "Friend"
+        setConnectButtonText("Friend");
+        setConnectButtonVariant("secondary");
+        setConnectButtonDisabled(true);
+      } else {
+        // if friend request is rejected, update button to show "Connect"
+        setConnectButtonText("Connect");
+        setConnectButtonVariant("light");
+        setConnectButtonDisabled(false);
+      }
+    };
+
+    fetchData();
+  }, [id]);
+
   return (
     <div className="app-container">
       <Container>
@@ -122,18 +165,20 @@ export function Profile() {
                   </h1>
                 </div>
 
-                {userType === "doctor" && userInfo.user.id === id && (
+                {userType === "doctor" && (
                   <div className="buttons-wrapper">
                     <Button
+                      onClick={sendConnectRequest}
                       className="custom-button frame-3 me-3 connect-button"
-                      variant="light"
+                      variant={connectButtonVariant}
                       style={{
                         backgroundColor: "#83c5be",
                         borderRadius: "20px",
                         minWidth: "120px",
                       }}
+                      disabled={connectButtonDisabled}
                     >
-                      <span>Connect</span>
+                      <span>{connectButtonText}</span>
                     </Button>
                     <Button
                       className="custom-button frame-3 me-3 reservation-button"
@@ -165,15 +210,17 @@ export function Profile() {
                 {userType === "person" && (
                   <div className="buttons-wrapper">
                     <Button
+                      onClick={sendConnectRequest}
                       className="custom-button frame-3 me-3 connect-button"
-                      variant="light"
+                      variant={connectButtonVariant}
                       style={{
                         backgroundColor: "#83c5be",
                         borderRadius: "20px",
                         minWidth: "120px",
                       }}
+                      disabled={connectButtonDisabled}
                     >
-                      <span>Connect</span>
+                      <span>{connectButtonText}</span>
                     </Button>
                   </div>
                 )}
@@ -240,6 +287,26 @@ export function Profile() {
                       <span>See All</span>
                     </Button>
                   </div>
+                  <Row className="g-2">
+                    {posts.slice(0, 4).map((post, index) => (
+                      <Col
+                        key={post.id}
+                        xs={12}
+                        sm={6}
+                        md={index < 2 ? 6 : 4}
+                        className="d-flex justify-content-center align-items-center"
+                      >
+                        <div className="photo-container ">
+                          <Image
+                            src={post.image}
+                            rounded
+                            className="photo-img"
+                            style={{ width: "150px", height: "150px" }}
+                          />
+                        </div>
+                      </Col>
+                    ))}
+                  </Row>
                 </Col>
               )}
             </Row>
