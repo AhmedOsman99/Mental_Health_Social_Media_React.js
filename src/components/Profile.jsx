@@ -15,32 +15,21 @@ import { Post } from "./Post";
 import { postContext } from "./contexts/PostContext";
 import AuthContext from "../context/AuthContext";
 import {
-  addNewPost,
   fetchProfilePosts,
   getUserById,
   isFriend,
   sendRequest,
+  addNewPost,
 } from "../APIs/utils";
 import { useParams } from "react-router";
 export function Profile() {
   const [showEditModal, setShowEditModal] = useState(false);
   const [showPhotosModal, setShowPhotosModal] = useState(false);
-  const [aboutContent, setAboutContent] = useState("about her");
+  const [aboutContent, setAboutContent] = useState("Doctor about ");
   const [photos, setPhotos] = useState([]); // Array to store the photos
   let { contextData } = useContext(AuthContext);
   let { user, userInfo } = contextData;
-  let { posts, setPosts } = useContext(postContext);
 
-  let addPost = async () => {
-    let response = await addNewPost(newPost);
-    // setPosts({...posts, newPost});
-    console.log(response.data);
-  };
-
-  let fetchAllPosts = async () => {
-    let response = await fetchProfilePosts(id);
-    setPosts(response.data);
-  };
   let [userById, setuserById] = useState({
     id: "",
     first_name: "",
@@ -77,6 +66,12 @@ export function Profile() {
   const handleViewPhotos = () => {
     setShowPhotosModal(true);
   };
+
+  // const handleClosePhotosModal = () => {
+  //   setShowPhotosModal(false);
+  // };
+  let { posts, setPosts } = useContext(postContext);
+
   let [newPost, setNewPost] = useState({
     content: "",
     image: null,
@@ -87,6 +82,15 @@ export function Profile() {
   };
   let fileHandler = (event) => {
     setNewPost({ ...newPost, image: event.target.files[0] });
+  };
+  let addPost = async () => {
+    let response = await addNewPost(newPost);
+    setPosts([...posts, response.data]);
+    setNewPost({ content: "", image: null });
+  };
+  let fetchAllPosts = async () => {
+    let response = await fetchProfilePosts(id);
+    setPosts(response.data);
   };
 
   // handle conect button
@@ -281,18 +285,41 @@ export function Profile() {
                       <span>See All</span>
                     </Button>
                   </div>
-                  <Row className="g-2">
+                  <Row className="g-2 p-2">
                     {posts.slice(0, 4).map((post, index) => (
                       <Col
                         key={post.id}
-                        xs={12}
-                        sm={6}
-                        md={index < 2 ? 6 : 4}
+                        xs={6}
+                        md={6}
+                        lg={3}
+                        className="d-flex justify-content-center align-items-center"
+                      >
+                        {post.image && (
+                          <div className="photo-container">
+                            <Image
+                              src={post.image}
+                              rounded
+                              className="photo-img"
+                              style={{
+                                width: "100%",
+                                height: "100%",
+                                objectFit: "cover",
+                              }}
+                            />
+                          </div>
+                        )}
+                      </Col>
+                    ))}
+                    {posts.length === 0 && (
+                      <Col
+                        xs={6}
+                        md={6}
+                        lg={3}
                         className="d-flex justify-content-center align-items-center"
                       >
                         <div className="photo-container">
                           <Image
-                            src={post.image}
+                            src="https://icons-for-free.com/iconfiles/png/512/gallery+image+landscape+mobile+museum+open+line+icon-1320183049020185924.png"
                             rounded
                             className="photo-img"
                             style={{
@@ -303,7 +330,7 @@ export function Profile() {
                           />
                         </div>
                       </Col>
-                    ))}
+                    )}
                   </Row>
                 </Col>
               )}
@@ -319,7 +346,7 @@ export function Profile() {
                       <div className="row mb-3 align-items-center justify-content-center p-4 mt-3 white-bg shadow-lg">
                         <div className="col-auto">
                           <img
-                            // src={profileImage}
+                            src="https://cdn-icons-png.flaticon.com/512/3135/3135715.png"
                             alt="Profile"
                             className="rounded-circle ellipse-3"
                           />
@@ -389,7 +416,7 @@ export function Profile() {
       <PhotosModal
         show={showPhotosModal}
         handleClose={() => setShowPhotosModal(false)}
-        photos={photos}
+        photos={posts.map((post) => post.image)}
       />
     </div>
   );
