@@ -5,6 +5,7 @@ import { postContext } from "./contexts/PostContext";
 import AuthContext from "../context/AuthContext";
 import { addNewPost, fetchPosts, getFriendList } from "../APIs/utils";
 import { Form, Modal } from "react-bootstrap";
+import { NavLink } from "react-router-dom";
 
 export function Home() {
   let { contextData } = useContext(AuthContext);
@@ -34,10 +35,10 @@ export function Home() {
   };
 
   let [showFriendsModal, setShowFriendsModal] = useState(false);
-  let [friends, setFriends] = useState("No friends to show");
-  let openFriendsModal = () => {
+  let [friends, setFriends] = useState([]);
+  let openFriendsModal = async () => {
     setShowFriendsModal(true);
-    let response = getFriendList();
+    let response = await getFriendList();
     setFriends(response.data);
   };
 
@@ -49,6 +50,7 @@ export function Home() {
     fetchAllPosts();
   }, []);
 
+  
   return (
     // <div>
     <div className="container-fluid">
@@ -59,7 +61,7 @@ export function Home() {
           <div className="row px-4">
             <div className="col-auto">
               <img
-                // src={profileImage}
+                src="https://cdn-icons-png.flaticon.com/512/3135/3135715.png"
                 alt="Profile"
                 className="rounded-circle ellipse-2"
               />
@@ -94,7 +96,7 @@ export function Home() {
             <div className="row mb-3 align-items-center justify-content-center p-4 mt-3 white-bg shadow-lg">
               <div className="col-auto">
                 <img
-                  // src={profileImage}
+                  src="https://cdn-icons-png.flaticon.com/512/3135/3135715.png"
                   alt="Profile"
                   className="rounded-circle ellipse-3"
                 />
@@ -130,7 +132,7 @@ export function Home() {
                       type="file"
                       className="custom-file-input p-0"
                       onChange={fileHandler}
-                      style={{ width: "52%"}}
+                      style={{ width: "52%" }}
                     />
                   </Form.Group>
                 </div>
@@ -138,6 +140,7 @@ export function Home() {
             </div>
           ) : null}
           {/* ////// end create Post ////// */}
+
           {posts.length > 0 ? (
             posts.map((post) => <Post post={post} />)
           ) : (
@@ -147,21 +150,23 @@ export function Home() {
         <div className="col-md-3 col-lg-3 grey-bg ">
           {/* Right column */}
           {/* Add content for the right column */}
-          <div className="fs-5 fw-semibold  pb-4">Contacts</div>
+
+          {/* <div className="fs-5 fw-semibold  pb-4">Contacts</div> */}
           {/* {
                 contacts mapping to show in HomePage 
             } */}
-          <div className="row px-4 pb-3 d-flex justify-content-center">
-            <div className="col-auto">
-              <img
-                // src={profileImage}
-                alt="Profile"
-                className="rounded-circle ellipse-2"
-              />{" "}
-              {/* user_profile_image */}
-            </div>
-            <div className="col-auto fw-semibold"></div> {/* chat part  */}
-          </div>
+          {/* <div className="row px-4 pb-3 d-flex justify-content-center"> */}
+          {/* <div className="col-auto"> */}
+          {/* <img */}
+          {/* // src={profileImage} */}
+          {/* alt="Profile" */}
+          {/* className="rounded-circle ellipse-2" */}
+          {/* /> */}
+          {/* {" "} */}
+          {/* user_profile_image */}
+          {/* </div> */}
+          {/* <div className="col-auto fw-semibold"></div>  */}
+          {/* </div> */}
         </div>
       </div>
       <Modal
@@ -173,7 +178,44 @@ export function Home() {
         <Modal.Header closeButton>
           <Modal.Title>Friends</Modal.Title>
         </Modal.Header>
-        <Modal.Body></Modal.Body>
+        <Modal.Body>
+          {friends !== false ? (
+            friends.map((friend) => (
+              <div className="row px-4">
+                <div className="col-auto"></div>
+                <div className="col-auto fs-5 fw-semibold">
+                  <NavLink
+                    to={`/profile/${friend.id}`}
+                    className="fs-5 fw-semibold nav-link"
+                  >
+                    {/* <div className="row"></div> */}
+                    <div className="username">
+                    <img
+                      src="https://cdn-icons-png.flaticon.com/512/3135/3135715.png"
+                      alt="Profile"
+                      className="rounded-circle"
+                      style={{
+                        height: "50px",
+                        left: "24px",
+                        objectFit: "cover",
+                        top: "24px",
+                        width: "50px",
+                      
+                      }}
+                    />
+                    <span className="px-2">
+
+                      {friend.first_name} {friend.last_name}
+                    </span>
+                    </div>
+                  </NavLink>{" "}
+                </div>
+              </div>
+            ))
+          ) : (
+            <div>No Friends To Show</div>
+          )}
+        </Modal.Body>
         <Modal.Footer></Modal.Footer>
       </Modal>
     </div>
