@@ -177,7 +177,8 @@ export function Post(props) {
       >
         <div className="col-auto pt-1">
           <img
-            // src={profileImage}
+            src="https://cdn-icons-png.flaticon.com/512/3135/3135715.png"
+            
             alt="Profile"
             className="rounded-circle "
             style={{

@@ -50,6 +50,7 @@ export function Home() {
     fetchAllPosts();
   }, []);
 
+  
   return (
     // <div>
     <div className="container-fluid">
@@ -60,7 +61,7 @@ export function Home() {
           <div className="row px-4">
             <div className="col-auto">
               <img
-                // src={profileImage}
+                src="https://cdn-icons-png.flaticon.com/512/3135/3135715.png"
                 alt="Profile"
                 className="rounded-circle ellipse-2"
               />
@@ -95,7 +96,7 @@ export function Home() {
             <div className="row mb-3 align-items-center justify-content-center p-4 mt-3 white-bg shadow-lg">
               <div className="col-auto">
                 <img
-                  // src={profileImage}
+                  src="https://cdn-icons-png.flaticon.com/512/3135/3135715.png"
                   alt="Profile"
                   className="rounded-circle ellipse-3"
                 />
@@ -139,6 +140,7 @@ export function Home() {
             </div>
           ) : null}
           {/* ////// end create Post ////// */}
+
           {posts.length > 0 ? (
             posts.map((post) => <Post post={post} />)
           ) : (
@@ -186,7 +188,26 @@ export function Home() {
                     to={`/profile/${friend.id}`}
                     className="fs-5 fw-semibold nav-link"
                   >
-                    {friend.first_name} {friend.last_name}
+                    {/* <div className="row"></div> */}
+                    <div className="username">
+                    <img
+                      src="https://cdn-icons-png.flaticon.com/512/3135/3135715.png"
+                      alt="Profile"
+                      className="rounded-circle"
+                      style={{
+                        height: "50px",
+                        left: "24px",
+                        objectFit: "cover",
+                        top: "24px",
+                        width: "50px",
+                      
+                      }}
+                    />
+                    <span className="px-2">
+
+                      {friend.first_name} {friend.last_name}
+                    </span>
+                    </div>
                   </NavLink>{" "}
                 </div>
               </div>
