@@ -15,6 +15,7 @@ export function Doctor_form() {
   const [gender, setGender] = useState('');
   const [phone, setPhone] = useState('');
   const [birthDate, setBirthDate] = useState('');
+  const [profilePicture, setProfilePicture] = useState(null);
   const [isDoctor, setIsDoctor] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
   const [formErrors, setFormErrors] = useState({
@@ -29,6 +30,7 @@ export function Doctor_form() {
     gender: '',
     phone: '',
     birthDate: '',
+    profilePicture: '',
   });
 
   const [specialty, setSpecialty] = useState('');
@@ -101,6 +103,9 @@ export function Doctor_form() {
         gender: gender,
         phone: phone,
         birth_date: birthDate,
+        profile_picture: profilePicture,
+        certificate: Certificate,
+        profile_picture: profilePicture
       }
       if (isDoctor) {
         userData.certificate = Certificate;
@@ -119,7 +124,8 @@ export function Doctor_form() {
     setIsLoading(true);
     axios.post('http://127.0.0.1:8000/api/register/', JSON.stringify(userData),{
       headers: {
-        'Content-Type': 'application/json'
+        'Content-Type': 'application/json',
+        // "Content-Type": "multipart/form-data", // Set the content type to multipart/form-data
       }
     })
      
@@ -140,6 +146,10 @@ export function Doctor_form() {
   const handleCertificateChange = (event) => {
     setCertificate(event.target.files[0]);
   }
+
+  const handleProfilePictureChange = (event) => {
+    setProfilePicture(event.target.files[0]);
+  };
 
   // Toggle isDoctor state when checkbox is clicked
   const handleIsDoctorChange = (event) => {
@@ -258,6 +268,10 @@ export function Doctor_form() {
                             onChange={(event) => setBirthDate(event.target.value)}
                           />
                    </div>
+                   <div className="frame-12">
+                    {/* <div className="text-wrapper-6">upload certificate</div> */}
+                    <input type="file" className={`input-field ${formErrors.profilePicture && 'error'}`} id="profile-picture" onChange={handleProfilePictureChange} />
+                  </div>
                     <div id="frame-8">
                     <label htmlFor="is-doctor" className="checkbox-label">
 

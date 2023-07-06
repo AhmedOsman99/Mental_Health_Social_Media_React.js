@@ -220,7 +220,18 @@
   gap: 8px;
   left: 306px !important;
   position: absolute;
-  top: 675px !important;
+  top: 724px !important;
+  width: 200px !important;
+}
+
+.sign-up .frame-12 {
+  align-items: flex-start;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  left: 306px !important;
+  position: absolute;
+  top: 687px !important;
   width: 200px !important;
 }
 
