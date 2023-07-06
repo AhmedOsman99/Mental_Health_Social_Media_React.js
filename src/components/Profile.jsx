@@ -31,14 +31,6 @@ export function Profile() {
   let { user, userInfo } = contextData;
   let { posts, setPosts } = useContext(postContext);
 
-  let [newPost, setNewPost] = useState({
-    content: "",
-  });
-
-  let operationHandler = (event) => {
-    setNewPost({ content: event.target.value });
-  };
-
   let addPost = async () => {
     let response = await addNewPost(newPost);
     // setPosts({...posts, newPost});
@@ -56,8 +48,9 @@ export function Profile() {
   });
   let [userType, setuserType] = useState({});
   const { id } = useParams();
+  console.log(id);
   console.log(userById.id);
-  console.log(userType);
+  console.log(userInfo.user.id);
   let getUser = async () => {
     let userdata = await getUserById(id);
     // console.log(userdata.data.user_type);
@@ -83,6 +76,17 @@ export function Profile() {
 
   const handleViewPhotos = () => {
     setShowPhotosModal(true);
+  };
+  let [newPost, setNewPost] = useState({
+    content: "",
+    image: null,
+  });
+
+  let operationHandler = (event) => {
+    setNewPost({ ...newPost, content: event.target.value });
+  };
+  let fileHandler = (event) => {
+    setNewPost({ ...newPost, image: event.target.files[0] });
   };
 
   // handle conect button
@@ -166,48 +170,8 @@ export function Profile() {
                     )}
                   </h1>
                 </div>
-                <div className="buttons-wrapper">
-                  <Button
-                    onClick={sendConnectRequest}
-                    className="custom-button frame-3 me-3 connect-button"
-                    variant={connectButtonVariant}
-                    style={{
-                      backgroundColor: "#83c5be",
-                      borderRadius: "20px",
-                      minWidth: "120px",
-                    }}
-                    disabled={connectButtonDisabled}
-                  >
-                    <span>{connectButtonText}</span>
-                  </Button>
-                  <Button
-                    className="custom-button frame-3 me-3 reservation-button"
-                    variant="light"
-                    style={{
-                      backgroundColor: "#83c5be",
-                      borderRadius: "20px",
-                      minWidth: "120px",
-                    }}
-                  >
-                    <span>Reservation</span>
-                  </Button>
-                  <Button
-                    className="frame-4 me-3 btn-outline-secondary"
-                    variant="#83c5be"
-                    style={{ borderRadius: "20px", minWidth: "120px" }}
-                  >
-                    {/* <span>Message</span> */}
-                  </Button>
-                  <Button
-                    className="div-wrapper btn-outline-secondary"
-                    variant="#83c5be"
-                    style={{ borderRadius: "20px", minWidth: "120px" }}
-                  >
-                    {/* <span>More</span> */}
-                  </Button>
-                </div>
 
-                {userType === "doctor" && (
+                {userType === "doctor" && userInfo.user.id != id ? (
                   <div className="buttons-wrapper">
                     <Button
                       onClick={sendConnectRequest}
@@ -233,23 +197,9 @@ export function Profile() {
                     >
                       <span>Reservation</span>
                     </Button>
-                    <Button
-                      className="frame-4 me-3 btn-outline-secondary"
-                      variant="#83c5be"
-                      style={{ borderRadius: "20px", minWidth: "120px" }}
-                    >
-                      <span>Message</span>
-                    </Button>
-                    <Button
-                      className="div-wrapper btn-outline-secondary"
-                      variant="#83c5be"
-                      style={{ borderRadius: "20px", minWidth: "120px" }}
-                    >
-                      <span>More</span>
-                    </Button>
                   </div>
-                )}
-                {userType === "person" && (
+                ) : null}
+                {userType === "person" && userInfo.user.id != id ? (
                   <div className="buttons-wrapper">
                     <Button
                       onClick={sendConnectRequest}
@@ -265,7 +215,7 @@ export function Profile() {
                       <span>{connectButtonText}</span>
                     </Button>
                   </div>
-                )}
+                ) : null}
               </Col>
             </Row>
           </Col>
@@ -280,10 +230,12 @@ export function Profile() {
                 >
                   <div className="d-flex justify-content-between align-items-center">
                     <h2>About</h2>
-                    <span
-                      className="bi bi-pencil"
-                      onClick={handleEditAbout}
-                    ></span>
+                    {userInfo.user.id == id ? (
+                      <span
+                        className="bi bi-pencil"
+                        onClick={handleEditAbout}
+                      ></span>
+                    ) : null}
                   </div>
 
                   <p>{aboutContent}</p>
@@ -338,12 +290,16 @@ export function Profile() {
                         md={index < 2 ? 6 : 4}
                         className="d-flex justify-content-center align-items-center"
                       >
-                        <div className="photo-container ">
+                        <div className="photo-container">
                           <Image
                             src={post.image}
                             rounded
                             className="photo-img"
-                            style={{ width: "150px", height: "150px" }}
+                            style={{
+                              width: "100%",
+                              height: "100%",
+                              objectFit: "cover",
+                            }}
                           />
                         </div>
                       </Col>
@@ -357,11 +313,55 @@ export function Profile() {
             <Row>
               {userType === "doctor" && (
                 <Col className="mt-2 col-12 " style={{ borderRadius: "20px" }}>
-                  <Row
-                    className="mt-3 py-1 bg-white shadow-lg"
-                    style={{ borderRadius: "20px" }}
-                  >
-                    <h2>Posts</h2>
+                  <Row className=" " style={{ borderRadius: "20px" }}>
+                    {userInfo.user_type === "doctor" &&
+                    userInfo.user.id == id ? (
+                      <div className="row mb-3 align-items-center justify-content-center p-4 mt-3 white-bg shadow-lg">
+                        <div className="col-auto">
+                          <img
+                            // src={profileImage}
+                            alt="Profile"
+                            className="rounded-circle ellipse-3"
+                          />
+                        </div>
+                        <div className="col text-start">
+                          <input
+                            type="text"
+                            className="grey-input"
+                            placeholder="Write a post"
+                            value={newPost.content}
+                            onChange={operationHandler}
+                          />
+                        </div>
+                        <div className="col-lg-2">
+                          <button
+                            type="button"
+                            class="btn btn-outline"
+                            style={{
+                              backgroundColor: "#83c5be",
+                              borderRadius: "20px",
+                              padding: "9px 15px 9px 15px",
+                            }}
+                            onClick={addPost}
+                          >
+                            Post
+                          </button>
+                        </div>
+
+                        <div className="row justify-content-center align-items-center mt-4">
+                          <div className="col-lg-4 d-flex align-items-center">
+                            <Form.Group controlId="formFile" className="mb-3">
+                              <Form.Control
+                                type="file"
+                                className="custom-file-input p-0"
+                                onChange={fileHandler}
+                                style={{ width: "52%" }}
+                              />
+                            </Form.Group>
+                          </div>
+                        </div>
+                      </div>
+                    ) : null}
                   </Row>
                   <Row>
                     {posts.length > 0 ? (

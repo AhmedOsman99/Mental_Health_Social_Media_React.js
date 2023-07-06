@@ -90,7 +90,10 @@ export function NavBar() {
                 </div>
               </NavLink>
 
-              <NavLink className="nav-link" to={`/profile/${userInfo.user.id}`}>
+              <NavLink
+                className="nav-link"
+                to={`/profile/${userInfo ? userInfo.user.id : null}`}
+              >
                 <div className="circle-icon">
                   <BsPersonCircle size={30} />
                 </div>
